@@ -1,107 +1,74 @@
-local cmd = vim.cmd
-local fn = vim.fn
-local opt = vim.o
-local g = vim.g
+vim.keymap.set('n', '<Space>', '<Nop>')
+vim.g.mapleader = ' '
 
-cmd.syntax('on')
-cmd.syntax('enable')
-opt.compatible = false
+vim.cmd.syntax('on')
+vim.cmd.syntax('enable')
+vim.opt.compatible = false
 
 -- Enable true colour support
-if fn.has('termguicolors') then
-  opt.termguicolors = true
+if vim.fn.has('termguicolors') then
+    vim.opt.termguicolors = true
 end
 
 -- See :h <option> to see what the options do
 
 -- Search down into subfolders
-opt.path = vim.o.path .. '**'
+vim.opt.path = vim.o.path .. '**'
 
-opt.number = true
-opt.relativenumber = true
-opt.cursorline = true
-opt.lazyredraw = true
-opt.showmatch = true -- Highlight matching parentheses, etc
-opt.incsearch = true
-opt.hlsearch = true
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.cursorline = true
+vim.opt.lazyredraw = true
+vim.opt.showmatch = true -- Highlight matching parentheses, etc
+vim.opt.incsearch = true
+vim.opt.hlsearch = false
 
-opt.spell = true
-opt.spelllang = 'en'
+vim.opt.expandtab = true
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 
-opt.expandtab = true
-opt.tabstop = 2
-opt.softtabstop = 2
-opt.shiftwidth = 2
-opt.foldenable = true
-opt.history = 2000
-opt.nrformats = 'bin,hex' -- 'octal'
-opt.undofile = true
-opt.splitright = true
-opt.splitbelow = true
-opt.cmdheight = 0
+vim.opt.foldenable = true
+vim.opt.history = 2000
+vim.opt.nrformats = 'bin,hex,octal'
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+-- vim.opt.cmdheight = 0
 
-opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+vim.opt.backup = false
+vim.opt.swapfile = false
+vim.opt.writebackup = false
+
+vim.opt.undofile = true
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undolevels = 1000
+vim.opt.undoreload = 10000
+
+vim.opt.updatetime = 50
+vim.opt.timeoutlen = 500
+
+vim.opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+
+-- vim.g.editorconfig = true -- TODO:
+vim.opt.signcolumn = 'yes'
+vim.opt.encoding = 'utf-8'
+vim.opt.fileencoding = 'utf-8'
+-- vim.opt.guicursor = 'a:hor25,v:block,i:ver25'
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+vim.opt.backspace = { 'indent', 'eol', 'nostop' }
+vim.opt.clipboard = 'unnamedplus'
+vim.opt.mouse = 'a'
+
+vim.opt.colorcolumn = '120'
+vim.cmd.colorscheme('catppuccin')
 
 -- Configure Neovim diagnostic messages
-
-local function prefix_diagnostic(prefix, diagnostic)
-  return string.format(prefix .. ' %s', diagnostic.message)
-end
-
-local sign = function(opts)
-  fn.sign_define(opts.name, {
-    texthl = opts.name,
-    text = opts.text,
-    numhl = '',
-  })
-end
--- Requires Nerd fonts
-sign { name = 'DiagnosticSignError', text = '󰅚' }
-sign { name = 'DiagnosticSignWarn', text = '⚠' }
-sign { name = 'DiagnosticSignInfo', text = 'ⓘ' }
-sign { name = 'DiagnosticSignHint', text = '󰌶' }
-
-vim.diagnostic.config {
-  virtual_text = {
-    prefix = '',
-    format = function(diagnostic)
-      local severity = diagnostic.severity
-      if severity == vim.diagnostic.severity.ERROR then
-        return prefix_diagnostic('󰅚', diagnostic)
-      end
-      if severity == vim.diagnostic.severity.WARN then
-        return prefix_diagnostic('⚠', diagnostic)
-      end
-      if severity == vim.diagnostic.severity.INFO then
-        return prefix_diagnostic('ⓘ', diagnostic)
-      end
-      if severity == vim.diagnostic.severity.HINT then
-        return prefix_diagnostic('󰌶', diagnostic)
-      end
-      return prefix_diagnostic('■', diagnostic)
-    end,
-  },
-  signs = true,
-  update_in_insert = false,
-  underline = true,
-  severity_sort = true,
-  float = {
-    focusable = false,
-    style = 'minimal',
-    border = 'rounded',
-    source = 'always',
-    header = '',
-    prefix = '',
-  },
-}
-
-g.editorconfig = true
-
-vim.opt.colorcolumn = '100'
+vim.diagnostic.config({
+    signs = true,
+    update_in_insert = true,
+    severity_sort = true,
+})
 
 -- Native plugins
-cmd.filetype('plugin', 'indent', 'on')
-cmd.packadd('cfilter') -- Allows filtering the quickfix list with :cfdo
-
--- let sqlite.lua (which some plugins depend on) know where to find sqlite
-vim.g.sqlite_clib_path = require('luv').os_getenv('LIBSQLITE')
+-- vim.cmd.filetype('plugin', 'indent', 'on')
+-- vim.cmd.packadd('cfilter') -- Allows filtering the quickfix list with :cfdo

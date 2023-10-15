@@ -16,8 +16,8 @@ with lib;
     withPython3 ? true,
     withRuby ? false,
     withNodeJs ? false,
-    viAlias ? true,
-    vimAlias ? true,
+    viAlias ? false,
+    vimAlias ? false,
   }: let
     defaultPlugin = {
       plugin = null; # e.g. nvim-lspconfig
@@ -26,7 +26,7 @@ with lib;
       runtime = {};
     };
 
-    externalPackages = extraPackages ++ [pkgs.sqlite];
+    externalPackages = extraPackages; # ++ [pkgs.sqlite];
 
     normalizedPlugins = map (x:
       defaultPlugin
@@ -79,8 +79,8 @@ with lib;
       ++ (optional wrapRc
         ''--add-flags -u --add-flags "${pkgs.writeText "init.lua" customRC}"'')
       ++ [
-        ''--set LIBSQLITE_CLIB_PATH "${pkgs.sqlite.out}/lib/libsqlite3.so"''
-        ''--set LIBSQLITE "${pkgs.sqlite.out}/lib/libsqlite3.so"''
+        # ''--set LIBSQLITE_CLIB_PATH "${pkgs.sqlite.out}/lib/libsqlite3.so"''
+        # ''--set LIBSQLITE "${pkgs.sqlite.out}/lib/libsqlite3.so"''
       ]
     );
 

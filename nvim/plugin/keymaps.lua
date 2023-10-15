@@ -1,185 +1,67 @@
-local M = {}
+-- keymap object is { lhs, rhs, opts = {}, mode = string }
+keymap = function(keymap)
+    keymap.opts = vim.tbl_deep_extend('force', keymap.opts or {}, { noremap = true, silent = true })
+---@diagnostic disable-next-line: param-type-mismatch
+    keymap.mode = keymap.mode and vim.split(keymap.mode, ' ', {}) or 'n'
 
-local api = vim.api
-local fn = vim.fn
-local keymap = vim.keymap
-local diagnostic = vim.diagnostic
-
--- Automatic management of search highlight
-local auto_hlsearch_namespace = vim.api.nvim_create_namespace('auto_hlsearch')
-vim.on_key(function(char)
-  if vim.fn.mode() == 'n' then
-    vim.opt.hlsearch = vim.tbl_contains({ '<CR>', 'n', 'N', '*', '#', '?', '/' }, vim.fn.keytrans(char))
-  end
-end, auto_hlsearch_namespace)
-
--- Yank from current position till end of current line
-keymap.set('n', 'Y', 'y$', { silent = true, desc = 'yank to end of line' })
-
--- Buffer list navigation
-keymap.set('n', '[b', vim.cmd.bprevious, { silent = true, desc = 'previous buffer' })
-keymap.set('n', ']b', vim.cmd.bnext, { silent = true, desc = 'next buffer' })
-keymap.set('n', '[B', vim.cmd.bfirst, { silent = true, desc = 'first buffer' })
-keymap.set('n', ']B', vim.cmd.blast, { silent = true, desc = 'last buffer' })
-
--- Toggle the quickfix list (only opens if it is populated)
-local function toggle_qf_list()
-  local qf_exists = false
-  for _, win in pairs(fn.getwininfo() or {}) do
-    if win['quickfix'] == 1 then
-      qf_exists = true
-    end
-  end
-  if qf_exists == true then
-    vim.cmd.cclose()
-    return
-  end
-  if not vim.tbl_isempty(vim.fn.getqflist()) then
-    vim.cmd.copen()
-  end
+    vim.keymap.set(keymap.mode, keymap[1], keymap[2], keymap.opts)
 end
 
-keymap.set('n', '<C-c>', toggle_qf_list, { desc = 'toggle quickfix list' })
+-- disable arrow keys
+-- keymap({ '<Down>', '<Nop>', mode = 'n i' })
+-- keymap({ '<Up>', '<Nop>', mode = 'n i' })
+-- keymap({ '<Left>', '<Nop>', mode = 'n i' })
+-- keymap({ '<Right>', '<Nop>', mode = 'n i' })
 
-local function try_fallback_notify(opts)
-  local success, _ = pcall(opts.try)
-  if success then
-    return
-  end
-  success, _ = pcall(opts.fallback)
-  if success then
-    return
-  end
-  vim.notify(opts.notify, vim.log.levels.INFO)
-end
+keymap({ '<C-S-k>', '<cmd>bnext<CR>', mode = 'n i' })
+keymap({ '<C-S-j>', '<cmd>bprev<CR>', mode = 'n i' })
 
--- Cycle the quickfix and location lists
-local function cleft()
-  try_fallback_notify {
-    try = vim.cmd.cprev,
-    fallback = vim.cmd.clast,
-    notify = 'Quickfix list is empty!',
-  }
-end
+keymap({ '<C-h>', '<C-w>h', mode = 'n i' })
+keymap({ '<C-j>', '<C-w>j', mode = 'n i' })
+keymap({ '<C-k>', '<C-w>k', mode = 'n i' })
+keymap({ '<C-l>', '<C-w>l', mode = 'n i' })
 
-local function cright()
-  try_fallback_notify {
-    try = vim.cmd.cnext,
-    fallback = vim.cmd.cfirst,
-    notify = 'Quickfix list is empty!',
-  }
-end
+keymap({ '<', '<gv', mode = 'v' })
+keymap({ '>', '>gv', mode = 'v' })
 
-keymap.set('n', '[c', cleft, { silent = true, desc = 'cycle quickfix left' })
-keymap.set('n', ']c', cright, { silent = true, desc = 'cycle quickfix right' })
-keymap.set('n', '[C', vim.cmd.cfirst, { silent = true, desc = 'first quickfix entry' })
-keymap.set('n', ']C', vim.cmd.clast, { silent = true, desc = 'last quickfix entry' })
+keymap({ '<C-s>', '<cmd>w<CR>', mode = 'n v i' })
+keymap({ '<leader>t', '<cmd>Ex<CR>', mode = 'n v', opts = { desc = 'File [T]ree' } })
 
-local function lleft()
-  try_fallback_notify {
-    try = vim.cmd.lprev,
-    fallback = vim.cmd.llast,
-    notify = 'Location list is empty!',
-  }
-end
+keymap({ '<C-u>', '<C-u>zz', mode = 'n v i' })
+keymap({ '<C-d>', '<C-d>zz', mode = 'n v i' })
 
-local function lright()
-  try_fallback_notify {
-    try = vim.cmd.lnext,
-    fallback = vim.cmd.lfirst,
-    notify = 'Location list is empty!',
-  }
-end
+keymap({ '<A-k>', '<cmd>move -2<CR>', mode = 'n v i' })
+keymap({ '<A-j>', '<cmd>move +1<CR>', mode = 'n v i' })
 
-keymap.set('n', '[l', lleft, { silent = true, desc = 'cycle loclist left' })
-keymap.set('n', ']l', lright, { silent = true, desc = 'cycle loclist right' })
-keymap.set('n', '[L', vim.cmd.lfirst, { silent = true, desc = 'first loclist entry' })
-keymap.set('n', ']L', vim.cmd.llast, { silent = true, desc = 'last loclist entry' })
+keymap({ '<leader>x', [["_x]], mode = 'n v' })
+keymap({ '<leader>d', [["_d]], mode = 'n v' })
 
--- Resize vertical splits
-local toIntegral = math.ceil
-keymap.set('n', '<leader>w+', function()
-  local curWinWidth = api.nvim_win_get_width(0)
-  api.nvim_win_set_width(0, toIntegral(curWinWidth * 3 / 2))
-end, { silent = true, desc = 'inc window width' })
-keymap.set('n', '<leader>w-', function()
-  local curWinWidth = api.nvim_win_get_width(0)
-  api.nvim_win_set_width(0, toIntegral(curWinWidth * 2 / 3))
-end, { silent = true, desc = 'dec window width' })
-keymap.set('n', '<leader>h+', function()
-  local curWinHeight = api.nvim_win_get_height(0)
-  api.nvim_win_set_height(0, toIntegral(curWinHeight * 3 / 2))
-end, { silent = true, desc = 'inc window height' })
-keymap.set('n', '<leader>h-', function()
-  local curWinHeight = api.nvim_win_get_height(0)
-  api.nvim_win_set_height(0, toIntegral(curWinHeight * 2 / 3))
-end, { silent = true, desc = 'dec window height' })
+keymap({ 'Q', '<nop>', mode = 'n v' })
+keymap({ 'q:', '<nop>', mode = 'n v' })
+
+keymap({ '<C-r>', 'nop' })
+keymap({ '<S-u>', '<cmd>redo<CR>' })
+
+-- keymap({ '-', '<cmd>Oil<CR>' })
+-- '<leader>f', vim.lsp.buf.format
+
+-- Remap for dealing with word wrap
+keymap({ 'k', "v:count == 0 ? 'gk' : 'k'", opts = { expr = true, silent = true } })
+keymap({ 'j', "v:count == 0 ? 'gj' : 'j'", opts = { expr = true, silent = true } })
+
+-- Diagnostic keymaps
+-- keymap({ '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' } })
+-- keymap({ ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' } })
+keymap({ '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' } })
+keymap({ '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' } })
 
 -- Remap Esc to switch to normal mode and Ctrl-Esc to pass Esc to terminal
-keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'switch to normal mode' })
-keymap.set('t', '<C-Esc>', '<Esc>', { desc = 'send Esc to terminal' })
+keymap({ '<Esc>', '<C-\\><C-n>', mode = 't', opts = { desc = 'switch to normal mode' } })
+keymap({ '<C-Esc>', '<Esc>', mode = 't', opts = { desc = 'send Esc to terminal' } })
 
--- Shortcut for expanding to current buffer's directory in command mode
-keymap.set('c', '%%', function()
-  if fn.getcmdtype() == ':' then
-    return fn.expand('%:h') .. '/'
-  else
-    return '%%'
-  end
-end, { expr = true, desc = "expand to current buffer's directory" })
+keymap({ '<C-d>', '<C-d>zz', mode = 'n', opts = { desc = 'move down half-page and center' } })
+keymap({ '<C-u>', '<C-u>zz', mode = 'n', opts = { desc = 'move up half-page and center' } })
+keymap({ '<C-f>', '<C-f>zz', mode = 'n', opts = { desc = 'move down full-page and center' } })
+keymap({ '<C-b>', '<C-b>zz', mode = 'n', opts = { desc = 'move up full-page and center' } })
 
-keymap.set('n', '<space>tn', vim.cmd.tabnew, { desc = 'new tab' })
-keymap.set('n', '<space>tq', vim.cmd.tabclose, { desc = 'close tab' })
-
-local severity = diagnostic.severity
-
-keymap.set('n', '<space>e', function()
-  local _, winid = diagnostic.open_float(nil, { scope = 'line' })
-  vim.api.nvim_win_set_config(winid or 0, { focusable = true })
-end, { noremap = true, silent = true, desc = 'diagnostics floating window' })
-keymap.set('n', '[d', diagnostic.goto_prev, { noremap = true, silent = true, desc = 'previous diagnostic' })
-keymap.set('n', ']d', diagnostic.goto_next, { noremap = true, silent = true, desc = 'next diagnostic' })
-keymap.set('n', '[e', function()
-  diagnostic.goto_prev {
-    severity = severity.ERROR,
-  }
-end, { noremap = true, silent = true, desc = 'previous error diagnostic' })
-keymap.set('n', ']e', function()
-  diagnostic.goto_next {
-    severity = severity.ERROR,
-  }
-end, { noremap = true, silent = true, desc = 'next error diagnostic' })
-keymap.set('n', '[w', function()
-  diagnostic.goto_prev {
-    severity = severity.WARN,
-  }
-end, { noremap = true, silent = true, desc = 'previous warning diagnostic' })
-keymap.set('n', ']w', function()
-  diagnostic.goto_next {
-    severity = severity.WARN,
-  }
-end, { noremap = true, silent = true, desc = 'next warning diagnostic' })
-keymap.set('n', '[h', function()
-  diagnostic.goto_prev {
-    severity = severity.HINT,
-  }
-end, { noremap = true, silent = true, desc = 'previous hint diagnostic' })
-keymap.set('n', ']h', function()
-  diagnostic.goto_next {
-    severity = severity.HINT,
-  }
-end, { noremap = true, silent = true, desc = 'next hint diagnostic' })
-
-local function toggle_spell_check()
-  ---@diagnostic disable-next-line: param-type-mismatch
-  vim.opt.spell = not (vim.opt.spell:get())
-end
-
-keymap.set('n', '<leader>S', toggle_spell_check, { noremap = true, silent = true, desc = 'toggle spell' })
-
-keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'move down half-page and center' })
-keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'move up half-page and center' })
-keymap.set('n', '<C-f>', '<C-f>zz', { desc = 'move down full-page and center' })
-keymap.set('n', '<C-b>', '<C-b>zz', { desc = 'move up full-page and center' })
-
-return M
+return {}

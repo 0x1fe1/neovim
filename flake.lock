@@ -18,13 +18,45 @@
         "type": "github"
       }
     },
+    "harpoon": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696945578,
+        "narHash": "sha256-pSnFx5fg1llNlpTCV4hoo3Pf1KWnAJDRVSe+88N4HXM=",
+        "owner": "ThePrimeagen",
+        "repo": "harpoon",
+        "rev": "c1aebbad9e3d13f20bedb8f2ce8b3a94e39e424a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ThePrimeagen",
+        "repo": "harpoon",
+        "type": "github"
+      }
+    },
+    "move": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1682079595,
+        "narHash": "sha256-t1JxAwFZb2IceaVfxgg1JeXYDVmPOFjSr2RMa+BoS1s=",
+        "owner": "fedepujol",
+        "repo": "move.nvim",
+        "rev": "d663b74b4e38f257aae757541c9076b8047844d6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fedepujol",
+        "repo": "move.nvim",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1696193975,
-        "narHash": "sha256-mnQjUcYgp9Guu3RNVAB2Srr1TqKcPpRXmJf4LJk6KRY=",
+        "lastModified": 1697059129,
+        "narHash": "sha256-9NJcFF9CEYPvHJ5ckE8kvINvI84SZZ87PvqMbH6pro0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "fdd898f8f79e8d2f99ed2ab6b3751811ef683242",
+        "rev": "5e4c2ada4fcd54b99d56d7bd62f384511a7e2593",
         "type": "github"
       },
       "original": {
@@ -37,8 +69,10 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
+        "harpoon": "harpoon",
+        "move": "move",
         "nixpkgs": "nixpkgs",
-        "wf-nvim": "wf-nvim"
+        "transparent": "transparent"
       }
     },
     "systems": {
@@ -56,19 +90,19 @@
         "type": "github"
       }
     },
-    "wf-nvim": {
+    "transparent": {
       "flake": false,
       "locked": {
-        "lastModified": 1694084982,
-        "narHash": "sha256-C5y171FySVSZ6iGE1lDBR/l6gly9PiY9EKy4CVEfqY4=",
-        "owner": "Cassin01",
-        "repo": "wf.nvim",
-        "rev": "d7de32119e933ddd4c006324475d487c87b8d80b",
+        "lastModified": 1693733176,
+        "narHash": "sha256-1JyfwHBCtNCPmsOLzJRWBtg1u9uApQZY4fn2mTL3NZ4=",
+        "owner": "xiyaowong",
+        "repo": "transparent.nvim",
+        "rev": "3af6232c8d39d51062702e875ff6407c1eeb0391",
         "type": "github"
       },
       "original": {
-        "owner": "Cassin01",
-        "repo": "wf.nvim",
+        "owner": "xiyaowong",
+        "repo": "transparent.nvim",
         "type": "github"
       }
     }

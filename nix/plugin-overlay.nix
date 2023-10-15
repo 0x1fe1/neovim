@@ -7,6 +7,8 @@
 in {
   nvimPlugins = {
     # Add bleeding edge plugins from the flake inputs here.
-    wf-nvim = mkNvimPlugin inputs.wf-nvim "wf.nvim";
+    transparent = mkNvimPlugin inputs.transparent "transparent.nvim";
+    move = mkNvimPlugin inputs.move "move.nvim";
+    harpoon = mkNvimPlugin inputs.harpoon "harpoon.nvim";
   };
 }
