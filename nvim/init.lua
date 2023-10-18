@@ -70,5 +70,5 @@ vim.diagnostic.config({
 })
 
 -- Native plugins
--- vim.cmd.filetype('plugin', 'indent', 'on')
--- vim.cmd.packadd('cfilter') -- Allows filtering the quickfix list with :cfdo
+vim.cmd.filetype('plugin', 'indent', 'on')
+vim.cmd.packadd('cfilter') -- Allows filtering the quickfix list with :cfdo

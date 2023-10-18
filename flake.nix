@@ -55,6 +55,8 @@
           nil
           stylua
           luajitPackages.luacheck
+          gopls
+          zls
         ];
       };
     in {

@@ -1,3 +1,4 @@
+-- redefined in lsp_zero.lua
 local api = vim.api
 
 local tempdirgroup = api.nvim_create_augroup('tempdir', { clear = true })

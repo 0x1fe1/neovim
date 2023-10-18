@@ -29,6 +29,7 @@ with final.pkgs.lib; let
       # Telescope And Extensions
       telescope-nvim # https://github.com/nvim-telescope/telescope.nvim/
       telescope-fzy-native-nvim # https://github.com/nvim-telescope/telescope-fzy-native.nvim
+      # telescope-manix # https://github.com/MrcJkb/telescope-manix/
 
       # UI
       lualine-nvim # Status line | https://github.com/nvim-lualine/lualine.nvim/
@@ -37,6 +38,9 @@ with final.pkgs.lib; let
 
       # Language Support
       neodev-nvim # adds support for Neovim's Lua API to lua-language-server | https://github.com/folke/neodev.nvim/
+      # lsp-zero-nvim # easy config for *most* lsps | https://github.com/VonHeikemen/lsp-zero.nvim
+      nvim-lspconfig # https://github.com/neovim/nvim-lspconfig/
+      go-nvim # https://github.com/ray-x/go.nvim/
 
       # Navigation/Editing Enhancement Plugins
       nvim-surround # https://github.com/kylechui/nvim-surround/
