@@ -1,5 +1,5 @@
+---@diagnostic disable: missing-fields
 local cmp = require('cmp')
-local lspkind = require('lspkind')
 local luasnip = require('luasnip')
 
 cmp.setup({
@@ -47,3 +47,9 @@ cmp.setup.filetype('lua', {
         { name = 'path' },
     },
 })
+
+-- cmp.setup.filetype('toml', {
+--     sources = cmp.config.sources {
+--         { name = "crates" },
+--     },
+-- })

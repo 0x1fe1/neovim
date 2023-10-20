@@ -1,5 +1,3 @@
-print('HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
-
 vim.bo.comments = ':---,:--'
 
 local lua_ls_cmd = 'lua-language-server'

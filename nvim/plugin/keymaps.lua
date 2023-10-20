@@ -1,3 +1,9 @@
+-- mode
+--  "n" - normal mode
+--  "i" - insert mode
+--  "x" - visual mode
+--  "v" - visual and select mode
+
 -- keymap object is { lhs, rhs, opts = {}, mode = string }
 keymap = function(keymap)
     keymap.opts = vim.tbl_deep_extend('force', keymap.opts or {}, { noremap = true, silent = true })
@@ -21,23 +27,23 @@ keymap({ '<C-j>', '<C-w>j', mode = 'n i' })
 keymap({ '<C-k>', '<C-w>k', mode = 'n i' })
 keymap({ '<C-l>', '<C-w>l', mode = 'n i' })
 
-keymap({ '<', '<gv', mode = 'v' })
-keymap({ '>', '>gv', mode = 'v' })
+keymap({ '<', '<gv', mode = 'x' })
+keymap({ '>', '>gv', mode = 'x' })
 
-keymap({ '<C-s>', '<cmd>w<CR>', mode = 'n v i' })
-keymap({ '<leader>t', '<cmd>Ex<CR>', mode = 'n v', opts = { desc = 'File [T]ree' } })
+keymap({ '<C-s>', '<cmd>w<CR>', mode = 'n x i' })
+keymap({ '<leader>t', '<cmd>Ex<CR>', mode = 'n x', opts = { desc = 'File [T]ree' } })
 
-keymap({ '<C-u>', '<C-u>zz', mode = 'n v i' })
-keymap({ '<C-d>', '<C-d>zz', mode = 'n v i' })
+keymap({ '<C-u>', '<C-u>zz', mode = 'n x i' })
+keymap({ '<C-d>', '<C-d>zz', mode = 'n x i' })
 
-keymap({ '<A-k>', '<cmd>move -2<CR>', mode = 'n v i' })
-keymap({ '<A-j>', '<cmd>move +1<CR>', mode = 'n v i' })
+keymap({ '<A-k>', '<cmd>move -2<CR>', mode = 'n x i' })
+keymap({ '<A-j>', '<cmd>move +1<CR>', mode = 'n x i' })
 
-keymap({ '<leader>x', [["_x]], mode = 'n v' })
-keymap({ '<leader>d', [["_d]], mode = 'n v' })
+keymap({ '<leader>x', [["_x]], mode = 'n x' })
+keymap({ '<leader>d', [["_d]], mode = 'n x' })
 
-keymap({ 'Q', '<nop>', mode = 'n v' })
-keymap({ 'q:', '<nop>', mode = 'n v' })
+keymap({ 'Q', '<nop>', mode = 'n x' })
+keymap({ 'q:', '<nop>', mode = 'n x' })
 
 keymap({ '<C-r>', 'nop' })
 keymap({ '<S-u>', '<cmd>redo<CR>' })
@@ -59,9 +65,8 @@ keymap({ '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list
 keymap({ '<Esc>', '<C-\\><C-n>', mode = 't', opts = { desc = 'switch to normal mode' } })
 keymap({ '<C-Esc>', '<Esc>', mode = 't', opts = { desc = 'send Esc to terminal' } })
 
-keymap({ '<C-d>', '<C-d>zz', mode = 'n', opts = { desc = 'move down half-page and center' } })
-keymap({ '<C-u>', '<C-u>zz', mode = 'n', opts = { desc = 'move up half-page and center' } })
-keymap({ '<C-f>', '<C-f>zz', mode = 'n', opts = { desc = 'move down full-page and center' } })
-keymap({ '<C-b>', '<C-b>zz', mode = 'n', opts = { desc = 'move up full-page and center' } })
+keymap({ '<C-d>', '<C-d>zz', mode = 'n x', opts = { desc = 'move down half-page and center' } })
+keymap({ '<C-u>', '<C-u>zz', mode = 'n x', opts = { desc = 'move up half-page and center' } })
+keymap({ '<C-f>', '<C-f>zz', mode = 'n x', opts = { desc = 'move down full-page and center' } })
+keymap({ '<C-b>', '<C-b>zz', mode = 'n x', opts = { desc = 'move up full-page and center' } })
 
-return {}

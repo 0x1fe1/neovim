@@ -24,11 +24,10 @@ vim.opt.incsearch = true
 vim.opt.hlsearch = false
 
 vim.opt.expandtab = true
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
 
-vim.opt.foldenable = true
 vim.opt.history = 2000
 vim.opt.nrformats = 'bin,hex,octal'
 vim.opt.splitright = true
@@ -47,13 +46,10 @@ vim.opt.undoreload = 10000
 vim.opt.updatetime = 50
 vim.opt.timeoutlen = 500
 
-vim.opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-
 -- vim.g.editorconfig = true -- TODO:
 vim.opt.signcolumn = 'yes'
 vim.opt.encoding = 'utf-8'
 vim.opt.fileencoding = 'utf-8'
--- vim.opt.guicursor = 'a:hor25,v:block,i:ver25'
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 vim.opt.backspace = { 'indent', 'eol', 'nostop' }
 vim.opt.clipboard = 'unnamedplus'
@@ -72,3 +68,14 @@ vim.diagnostic.config({
 -- Native plugins
 vim.cmd.filetype('plugin', 'indent', 'on')
 vim.cmd.packadd('cfilter') -- Allows filtering the quickfix list with :cfdo
+
+-- [[ Highlight on yank ]]
+-- See `:help vim.highlight.on_yank()`
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+    group = highlight_group,
+    pattern = '*',
+})

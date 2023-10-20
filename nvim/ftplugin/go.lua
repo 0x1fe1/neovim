@@ -1,9 +1,5 @@
--- vim.cmd("LspZeroSetupServers gopls")
-
 -- Exit if the language server isn't available
-print("GOPLS ?")
 if vim.fn.executable('gopls') ~= 1 then
-    print("GOPLS 404")
     return
 end
 
