@@ -84,14 +84,15 @@ with final.pkgs.lib; let
     # marksman
 
     # prettierd
-    # nodePackages_latest.prettier
+    nodePackages_latest.prettier
 
-    # vscode-langservers-extracted
     # nodePackages_latest.vscode-css-languageserver-bin
-    # nodePackages_latest.typescript-language-server
+    nodePackages_latest.typescript-language-server
 
-    # nodePackages_latest.svelte-language-server
-    # nodePackages_latest.svelte-check
+    nodePackages_latest.svelte-language-server
+    nodePackages_latest.svelte-check
+    vscode-langservers-extracted
+    typescript
   ];
 in {
   # This is the neovim derivation

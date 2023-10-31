@@ -120,4 +120,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-require('lsp-zero').setup_servers({ 'tsserver', 'rust_analyzer' })
+require('lsp-zero').set_preferences({ call_servers = 'global' })
+require('lsp-zero').setup_servers({ 'rust_analyzer', 'gopls', 'tsserver', 'svelte', 'html', 'cssls' })
+require('lsp-zero').setup()

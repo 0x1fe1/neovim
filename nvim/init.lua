@@ -19,7 +19,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.lazyredraw = true
-vim.opt.showmatch = true -- Highlight matching parentheses, etc
+vim.opt.showmatch = false -- Highlight matching parentheses, etc
 vim.opt.incsearch = true
 vim.opt.hlsearch = false
 

@@ -57,6 +57,7 @@
           luajitPackages.luacheck
           gopls
           zls
+          nodePackages_latest.typescript-language-server
         ];
       };
     in {
