@@ -6,6 +6,7 @@ require('Comment').setup()
 require("which-key").setup()
 require('crates').setup()
 require("fidget").setup()
+require("nvim-autopairs").setup({})
 
 --<harpoon>--
 ; (function()
@@ -24,8 +25,9 @@ require("fidget").setup()
 end)()
 --<harpoon>--
 
---<move>--
+--<gomove>--
 ; (function()
+  --- Move
   keymap({ '<A-j>', ':MoveLine(1)<CR>', opts = { noremap = true, silent = true } })
   keymap({ '<A-k>', ':MoveLine(-1)<CR>', opts = { noremap = true, silent = true } })
   keymap({ '<A-h>', ':MoveHChar(-1)<CR>', opts = { noremap = true, silent = true } })
@@ -35,8 +37,15 @@ end)()
   keymap({ '<A-k>', ':MoveBlock(-1)<CR>', mode = 'v', opts = { noremap = true, silent = true } })
   keymap({ '<A-h>', ':MoveHBlock(-1)<CR>', mode = 'v', opts = { noremap = true, silent = true } })
   keymap({ '<A-l>', ':MoveHBlock(1)<CR>', mode = 'v', opts = { noremap = true, silent = true } })
+
+  --- Duplicate
+  keymap({ '<S-A-j>', 'Vyp', opts = { noremap = true, silent = true } })
+  keymap({ '<S-A-k>', 'Vypk', opts = { noremap = true, silent = true } })
+
+  keymap({ '<S-A-j>', 'Vyp', mode = 'v', opts = { noremap = true, silent = true } })
+  keymap({ '<S-A-k>', 'Vypk', mode = 'v', opts = { noremap = true, silent = true } })
 end)()
---<move>--
+--<gomove>--
 
 --<indent blank line>--
 ; (function()
@@ -118,7 +127,7 @@ end)()
     return newVirtText
   end
 
----@diagnostic disable-next-line: missing-fields
+  ---@diagnostic disable-next-line: missing-fields
   require('ufo').setup({
     provider_selector = function(_, _, _) -- (bufnr, filetype, buftype)
       return { 'treesitter', 'indent' }

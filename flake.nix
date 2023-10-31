@@ -12,8 +12,8 @@
       url = "github:xiyaowong/transparent.nvim";
       flake = false;
     };
-    move = {
-      url = "github:fedepujol/move.nvim";
+    gomove = {
+      url = "github:booperlv/nvim-gomove";
       flake = false;
     };
     harpoon = {

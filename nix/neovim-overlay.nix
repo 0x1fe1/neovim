@@ -54,6 +54,7 @@ with final.pkgs.lib; let
       nvim-ts-context-commentstring # https://github.com/joosepalviste/nvim-ts-context-commentstring
       comment-nvim # comment utils | https://github.com/numtostr/comment.nvim
       playground # treesitter playground | https://github.com/nvim-treesitter/playground
+      nvim-autopairs # https://github.com/windwp/nvim-autopairs
 
       # Dependencies
       # sqlite-lua
@@ -67,7 +68,7 @@ with final.pkgs.lib; let
     ++ (with pkgs.nvimPlugins; [
       # Bleeding-edge plugins from flake inputs go in here
       transparent # makes the neovim background transparent | https://github.com/xiyaowong/transparent.nvim
-      move # allows Alt+j/k to move lines | https://github.com/fedepujol/move.nvim
+      gomove # allows [Shift+]Alt+j/k to [duplicate]move lines | https://github.com/booperlv/nvim-gomove
       harpoon # Quick jumping between files | https://github.com/ThePrimeagen/harpoon
     ]);
 

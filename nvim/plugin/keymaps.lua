@@ -70,3 +70,5 @@ keymap({ '<C-u>', '<C-u>zz', mode = 'n x', opts = { desc = 'move up half-page an
 keymap({ '<C-f>', '<C-f>zz', mode = 'n x', opts = { desc = 'move down full-page and center' } })
 keymap({ '<C-b>', '<C-b>zz', mode = 'n x', opts = { desc = 'move up full-page and center' } })
 
+keymap({ 'p', 'P', mode = 'n x', opts = { desc = 'do not copy the text, that was pasted over' } })
+
