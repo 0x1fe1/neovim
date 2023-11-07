@@ -38,6 +38,7 @@ cmp.setup({
             end
         end, { 'i', 's' }),
     }),
+    -- formatting = require('lsp-zero').cmp_format(),
 })
 
 cmp.setup.filetype('lua', {
@@ -48,8 +49,8 @@ cmp.setup.filetype('lua', {
     },
 })
 
--- cmp.setup.filetype('toml', {
---     sources = cmp.config.sources {
---         { name = "crates" },
---     },
--- })
+cmp.setup.filetype('toml', {
+    sources = cmp.config.sources {
+        { name = "crates" },
+    },
+})

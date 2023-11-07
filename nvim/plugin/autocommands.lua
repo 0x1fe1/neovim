@@ -117,9 +117,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
       })
       buf_refresh_codeLens()
     end
+
+    require('lsp-zero').buffer_autoformat()
   end,
 })
 
-require('lsp-zero').set_preferences({ call_servers = 'global' })
-require('lsp-zero').setup_servers({ 'rust_analyzer', 'gopls', 'tsserver', 'svelte', 'html', 'cssls' })
+require('lsp-zero').setup_servers({ 'gopls', 'zls', 'tsserver', 'svelte', 'html', 'cssls' })
 require('lsp-zero').setup()

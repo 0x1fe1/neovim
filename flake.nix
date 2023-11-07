@@ -20,6 +20,13 @@
       url = "github:ThePrimeagen/harpoon";
       flake = false;
     };
+    lsp-zero = {
+      url = "github:VonHeikemen/lsp-zero.nvim";
+      flake = false;
+    };
+    rustaceanvim = {
+      url = "github:mrcjkb/rustaceanvim";
+    };
   };
 
   outputs = inputs @ {
@@ -38,7 +45,7 @@
     # This is where the bleeding-edge plugins are built.
     plugin-overlay = import ./nix/plugin-overlay.nix {inherit inputs;};
     # This is where the Neovim derivation is built.
-    neovim-overlay = import ./nix/neovim-overlay.nix;
+    neovim-overlay = import ./nix/neovim-overlay.nix {inherit inputs;};
   in
     flake-utils.lib.eachSystem supportedSystems (system: let
       pkgs = import nixpkgs {
@@ -55,9 +62,6 @@
           nil
           stylua
           luajitPackages.luacheck
-          gopls
-          zls
-          nodePackages_latest.typescript-language-server
         ];
       };
     in {

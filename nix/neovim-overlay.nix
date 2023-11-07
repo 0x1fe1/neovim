@@ -1,10 +1,10 @@
-final: prev:
+{inputs}: final: prev:
 with final.pkgs.lib; let
   pkgs = final.pkgs;
 
   mkNeovim = pkgs.callPackage ./mkNeovim.nix {};
 
-  all-plugins = with pkgs.vimPlugins;
+  all-plugins = with inputs.nixpkgs.legacyPackages.x86_64-linux.vimPlugins;
     [
       # plugins from nixpkgs go in here.
       # https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vimPlugins
@@ -43,9 +43,8 @@ with final.pkgs.lib; let
       # Language Support
       neodev-nvim # adds support for Neovim's Lua API to lua-language-server | https://github.com/folke/neodev.nvim
       nvim-lspconfig # https://github.com/neovim/nvim-lspconfig
-      lsp-zero-nvim # easy config for *most* lsps | https://github.com/VonHeikemen/lsp-zero.nvim
       # go-nvim # https://github.com/ray-x/go.nvim
-      rust-tools-nvim # https://github.com/simrat39/rust-tools.nvim
+      # rust-tools-nvim # https://github.com/simrat39/rust-tools.nvim
       crates-nvim # https://github.com/saecki/crates.nvim
 
       # Navigation/Editing Enhancement Plugins
@@ -55,6 +54,7 @@ with final.pkgs.lib; let
       comment-nvim # comment utils | https://github.com/numtostr/comment.nvim
       playground # treesitter playground | https://github.com/nvim-treesitter/playground
       nvim-autopairs # https://github.com/windwp/nvim-autopairs
+      # neoscroll-nvim # smooth scroll | https://github.com/karb94/neoscroll.nvim
 
       # Dependencies
       # sqlite-lua
@@ -70,6 +70,8 @@ with final.pkgs.lib; let
       transparent # makes the neovim background transparent | https://github.com/xiyaowong/transparent.nvim
       gomove # allows [Shift+]Alt+j/k to [duplicate]move lines | https://github.com/booperlv/nvim-gomove
       harpoon # Quick jumping between files | https://github.com/ThePrimeagen/harpoon
+      lsp-zero # easy config for *most* lsps | https://github.com/VonHeikemen/lsp-zero.nvim
+      rustaceanvim  # rust-tools, does not require lspconfig / setup call | https://github.com/mrcjkb/rustaceanvim
     ]);
 
   extraPackages = with pkgs; [

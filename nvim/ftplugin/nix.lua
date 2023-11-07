@@ -3,6 +3,7 @@ if vim.fn.executable('nil') ~= 1 then
   return
 end
 
+
 local root_files = {
   'flake.nix',
   'default.nix',
@@ -10,9 +11,11 @@ local root_files = {
   '.git',
 }
 
-vim.lsp.start {
+vim.lsp.start({
   name = 'nil_ls',
   cmd = { 'nil' },
   root_dir = vim.fs.dirname(vim.fs.find(root_files, { upward = true })[1]),
   capabilities = require('user.lsp').make_client_capabilities(),
-}
+})
+
+keymap({ "<F5>", ":%!alejandra -qq<CR>", opts = { desc = "Format (nix)" } })

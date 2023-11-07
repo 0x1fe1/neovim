@@ -6,11 +6,11 @@
 
 -- keymap object is { lhs, rhs, opts = {}, mode = string }
 keymap = function(keymap)
-    keymap.opts = vim.tbl_deep_extend('force', keymap.opts or {}, { noremap = true, silent = true })
----@diagnostic disable-next-line: param-type-mismatch
-    keymap.mode = keymap.mode and vim.split(keymap.mode, ' ', {}) or 'n'
+  keymap.opts = vim.tbl_deep_extend('force', keymap.opts or {}, { noremap = true, silent = true })
+  ---@diagnostic disable-next-line: param-type-mismatch
+  keymap.mode = keymap.mode and vim.split(keymap.mode, ' ', {}) or 'n'
 
-    vim.keymap.set(keymap.mode, keymap[1], keymap[2], keymap.opts)
+  vim.keymap.set(keymap.mode, keymap[1], keymap[2], keymap.opts)
 end
 
 -- disable arrow keys
@@ -70,5 +70,5 @@ keymap({ '<C-u>', '<C-u>zz', mode = 'n x', opts = { desc = 'move up half-page an
 keymap({ '<C-f>', '<C-f>zz', mode = 'n x', opts = { desc = 'move down full-page and center' } })
 keymap({ '<C-b>', '<C-b>zz', mode = 'n x', opts = { desc = 'move up full-page and center' } })
 
-keymap({ 'p', 'P', mode = 'n x', opts = { desc = 'do not copy the text, that was pasted over' } })
-
+keymap({ 'p', 'P', mode = 'x', opts = { desc = 'do not copy the text, that was pasted over' } })
+keymap({ '<C-z>', '<NOP>', opts = { desc = 'do not suspend' } })

@@ -6,7 +6,8 @@ require('Comment').setup()
 require("which-key").setup()
 require('crates').setup()
 require("fidget").setup()
-require("nvim-autopairs").setup({})
+require("nvim-autopairs").setup()
+-- require('neoscroll').setup()
 
 --<harpoon>--
 ; (function()
@@ -28,22 +29,26 @@ end)()
 --<gomove>--
 ; (function()
   --- Move
-  keymap({ '<A-j>', ':MoveLine(1)<CR>', opts = { noremap = true, silent = true } })
-  keymap({ '<A-k>', ':MoveLine(-1)<CR>', opts = { noremap = true, silent = true } })
-  keymap({ '<A-h>', ':MoveHChar(-1)<CR>', opts = { noremap = true, silent = true } })
-  keymap({ '<A-l>', ':MoveHChar(1)<CR>', opts = { noremap = true, silent = true } })
+  keymap({ "<A-h>", "<Plug>GoNSMLeft" })
+  keymap({ "<A-j>", "<Plug>GoNSMDown" })
+  keymap({ "<A-k>", "<Plug>GoNSMUp" })
+  keymap({ "<A-l>", "<Plug>GoNSMRight" })
 
-  keymap({ '<A-j>', ':MoveBlock(1)<CR>', mode = 'v', opts = { noremap = true, silent = true } })
-  keymap({ '<A-k>', ':MoveBlock(-1)<CR>', mode = 'v', opts = { noremap = true, silent = true } })
-  keymap({ '<A-h>', ':MoveHBlock(-1)<CR>', mode = 'v', opts = { noremap = true, silent = true } })
-  keymap({ '<A-l>', ':MoveHBlock(1)<CR>', mode = 'v', opts = { noremap = true, silent = true } })
+  keymap({ "<A-h>", "<Plug>GoVSMLeft", mode = "x" })
+  keymap({ "<A-j>", "<Plug>GoVSMDown", mode = "x" })
+  keymap({ "<A-k>", "<Plug>GoVSMUp", mode = "x" })
+  keymap({ "<A-l>", "<Plug>GoVSMRight", mode = "x" })
 
   --- Duplicate
-  keymap({ '<S-A-j>', 'Vyp', opts = { noremap = true, silent = true } })
-  keymap({ '<S-A-k>', 'Vypk', opts = { noremap = true, silent = true } })
+  keymap({ "<S-A-h>", "<Plug>GoNSDLeft" })
+  keymap({ "<S-A-j>", "<Plug>GoNSDDown" })
+  keymap({ "<S-A-k>", "<Plug>GoNSDUp" })
+  keymap({ "<S-A-l>", "<Plug>GoNSDRight" })
 
-  keymap({ '<S-A-j>', 'Vyp', mode = 'v', opts = { noremap = true, silent = true } })
-  keymap({ '<S-A-k>', 'Vypk', mode = 'v', opts = { noremap = true, silent = true } })
+  keymap({ "<S-A-h>", "<Plug>GoVSDLeft", mode = "x" })
+  keymap({ "<S-A-j>", "<Plug>GoVSDDown", mode = "x" })
+  keymap({ "<S-A-k>", "<Plug>GoVSDUp", mode = "x" })
+  keymap({ "<S-A-l>", "<Plug>GoVSDRight", mode = "x" })
 end)()
 --<gomove>--
 
