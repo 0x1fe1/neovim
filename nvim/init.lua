@@ -7,7 +7,7 @@ vim.opt.compatible = false
 
 -- Enable true colour support
 if vim.fn.has('termguicolors') then
-    vim.opt.termguicolors = true
+  vim.opt.termguicolors = true
 end
 
 -- See :h <option> to see what the options do
@@ -54,15 +54,16 @@ vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 vim.opt.backspace = { 'indent', 'eol', 'nostop' }
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.mouse = 'a'
+vim.opt.scrolloff = 8
 
 vim.opt.colorcolumn = '120'
 vim.cmd.colorscheme('catppuccin')
 
 -- Configure Neovim diagnostic messages
 vim.diagnostic.config({
-    signs = true,
-    update_in_insert = true,
-    severity_sort = true,
+  signs = true,
+  update_in_insert = true,
+  severity_sort = true,
 })
 
 -- Native plugins
@@ -73,9 +74,16 @@ vim.cmd.packadd('cfilter') -- Allows filtering the quickfix list with :cfdo
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-    group = highlight_group,
-    pattern = '*',
+  group = highlight_group,
+  pattern = '*',
+  callback = function()
+    vim.highlight.on_yank({
+      higroup = 'IncSearch',
+      timeout = 40,
+    })
+  end,
 })
+
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25

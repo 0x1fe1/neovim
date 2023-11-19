@@ -31,7 +31,6 @@ keymap({ '<', '<gv', mode = 'x' })
 keymap({ '>', '>gv', mode = 'x' })
 
 keymap({ '<C-s>', '<cmd>w<CR>', mode = 'n x i' })
-keymap({ '<leader>t', '<cmd>Ex<CR>', mode = 'n x', opts = { desc = 'File [T]ree' } })
 
 keymap({ '<C-u>', '<C-u>zz', mode = 'n x i' })
 keymap({ '<C-d>', '<C-d>zz', mode = 'n x i' })
@@ -72,3 +71,6 @@ keymap({ '<C-b>', '<C-b>zz', mode = 'n x', opts = { desc = 'move up full-page an
 
 keymap({ 'p', 'P', mode = 'x', opts = { desc = 'do not copy the text, that was pasted over' } })
 keymap({ '<C-z>', '<NOP>', opts = { desc = 'do not suspend' } })
+keymap({ '-', '<NOP>' })
+keymap({ '+', '<NOP>' })
+keymap({ '=', '<NOP>' })

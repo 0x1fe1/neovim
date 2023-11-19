@@ -55,6 +55,7 @@ with final.pkgs.lib; let
       playground # treesitter playground | https://github.com/nvim-treesitter/playground
       nvim-autopairs # https://github.com/windwp/nvim-autopairs
       # neoscroll-nvim # smooth scroll | https://github.com/karb94/neoscroll.nvim
+      oil-nvim # netrw but in a buffer | https://github.com/stevearc/oil.nvim
 
       # Dependencies
       # sqlite-lua

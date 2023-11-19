@@ -1,6 +1,13 @@
 -- many plugins annoyingly require a call to a 'setup' function to be loaded,
 -- even with default configs
 
+-- TODO: make a snippet for this:
+-- --<oil>--
+-- ; (function()
+--   require("oil").setup({})
+-- end)()
+-- --<oil>--
+
 require('nvim-surround').setup()
 require('Comment').setup()
 require("which-key").setup()
@@ -9,7 +16,7 @@ require("fidget").setup()
 require("nvim-autopairs").setup()
 -- require('neoscroll').setup()
 
---<harpoon>--
+--<aaa>--
 ; (function()
   local ui = require("harpoon.ui")
   local mark = require("harpoon.mark")
@@ -25,6 +32,25 @@ require("nvim-autopairs").setup()
   keymap({ "<C-6>", function() ui.nav_file(6) end })
 end)()
 --<harpoon>--
+
+--<oil>--
+; (function()
+  require("oil").setup()
+  keymap({ '-', '<cmd>Oil<CR>', mode = 'n x', opts = { desc = 'File [T]ree' } })
+end)()
+--<oil>--
+
+--<lualine>--
+; (function()
+  require('lualine').setup({
+    options = {
+      theme = 'catppuccin',
+      component_separators = '|',
+      section_separators = '',
+    }
+  })
+end)()
+--<lualine>--
 
 --<gomove>--
 ; (function()
