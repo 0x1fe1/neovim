@@ -84,6 +84,7 @@ with final.pkgs.lib; let
 
     zls # zig LSP
     gopls # go LSP
+    ols # odin LSP
 
     # marksman
 

@@ -74,3 +74,5 @@ keymap({ '<C-z>', '<NOP>', opts = { desc = 'do not suspend' } })
 keymap({ '-', '<NOP>' })
 keymap({ '+', '<NOP>' })
 keymap({ '=', '<NOP>' })
+
+keymap({ '<C-c>', '<Esc>' })

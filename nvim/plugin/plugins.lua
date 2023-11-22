@@ -36,7 +36,7 @@ end)()
 --<oil>--
 ; (function()
   require("oil").setup()
-  keymap({ '-', '<cmd>Oil<CR>', mode = 'n x', opts = { desc = 'File [T]ree' } })
+  keymap({ '<C-d>', '<cmd>Oil<CR>', mode = 'n x', opts = { desc = 'File [T]ree' } })
 end)()
 --<oil>--
 

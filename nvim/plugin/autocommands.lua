@@ -122,5 +122,5 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-require('lsp-zero').setup_servers({ 'gopls', 'zls', 'tsserver', 'svelte', 'html', 'cssls' })
+require('lsp-zero').setup_servers({ 'gopls', 'zls', 'ols', 'tsserver', 'svelte', 'html', 'cssls', 'jsonls' })
 require('lsp-zero').setup()
