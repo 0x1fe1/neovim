@@ -72,7 +72,7 @@ with final.pkgs.lib; let
       gomove # allows [Shift+]Alt+j/k to [duplicate]move lines | https://github.com/booperlv/nvim-gomove
       harpoon # Quick jumping between files | https://github.com/ThePrimeagen/harpoon
       lsp-zero # easy config for *most* lsps | https://github.com/VonHeikemen/lsp-zero.nvim
-      rustaceanvim  # rust-tools, does not require lspconfig / setup call | https://github.com/mrcjkb/rustaceanvim
+      rustaceanvim # rust-tools, does not require lspconfig / setup call | https://github.com/mrcjkb/rustaceanvim
     ]);
 
   extraPackages = with pkgs; [
@@ -85,6 +85,7 @@ with final.pkgs.lib; let
     zls # zig LSP
     gopls # go LSP
     ols # odin LSP
+    nimlsp # nim LSP
 
     # marksman
 

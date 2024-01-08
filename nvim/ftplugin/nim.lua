@@ -1,0 +1,1 @@
+-- keymap({ "<F6>", ":!nimpretty src/*.nim", opts = { desc = "Format (nim)" } })

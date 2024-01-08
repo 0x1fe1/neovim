@@ -9,14 +9,23 @@
 -- --<oil>--
 
 require('nvim-surround').setup()
-require('Comment').setup()
 require("which-key").setup()
 require('crates').setup()
 require("fidget").setup()
 require("nvim-autopairs").setup()
 -- require('neoscroll').setup()
 
---<aaa>--
+--<Comment>--
+; (function()
+  require('Comment').setup({
+    pre_hook = function()
+      return vim.bo.commentstring
+    end,
+  })
+end)()
+--<Comment>--
+
+--<harpoon>--
 ; (function()
   local ui = require("harpoon.ui")
   local mark = require("harpoon.mark")
@@ -36,7 +45,7 @@ end)()
 --<oil>--
 ; (function()
   require("oil").setup()
-  keymap({ '<C-d>', '<cmd>Oil<CR>', mode = 'n x', opts = { desc = 'File [T]ree' } })
+  keymap({ '<A-a>', '<cmd>Oil<CR>', mode = 'n x', opts = { desc = 'File [T]ree' } })
 end)()
 --<oil>--
 
@@ -45,9 +54,18 @@ end)()
   require('lualine').setup({
     options = {
       theme = 'catppuccin',
-      component_separators = '|',
-      section_separators = '',
-    }
+      component_separators = { left = '│', right = '│' },
+      section_separators = { left = '▓▒░', right = '░▒▓' },
+      globalstatus = true,
+    },
+    sections = {
+      lualine_a = { 'mode' },
+      lualine_b = { 'branch', 'diff', 'diagnostics' },
+      lualine_c = { { 'filename', path = 2 } },
+      lualine_x = { 'encoding', 'fileformat', 'filetype' },
+      lualine_y = { 'progress' },
+      lualine_z = { 'location' }
+    },
   })
 end)()
 --<lualine>--

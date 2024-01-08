@@ -12,9 +12,10 @@ configs.setup {
       end
     end,
   },
-  context_commentstring = {
-    enable = true,
-  },
+}
+
+require('ts_context_commentstring').setup {
+  enable_autocmd = false,
 }
 
 -- require('treesitter-context').setup({
@@ -23,4 +24,5 @@ configs.setup {
 
 -- Tree-sitter based folding
 -- vim.opt.foldmethod = 'expr'
+vim.g.skip_ts_context_commentstring_module = true
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'

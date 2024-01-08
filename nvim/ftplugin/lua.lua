@@ -1,4 +1,5 @@
 vim.bo.comments = ':---,:--'
+vim.cmd("setlocal tabstop=2 softtabstop=2 shiftwidth=2")
 
 local lua_ls_cmd = 'lua-language-server'
 

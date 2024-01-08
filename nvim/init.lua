@@ -24,9 +24,9 @@ vim.opt.incsearch = true
 vim.opt.hlsearch = false
 
 vim.opt.expandtab = true
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 
 vim.opt.history = 2000
 vim.opt.nrformats = 'bin,hex,octal'
@@ -54,7 +54,7 @@ vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 vim.opt.backspace = { 'indent', 'eol', 'nostop' }
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.mouse = 'a'
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 4
 
 vim.opt.colorcolumn = '120'
 vim.cmd.colorscheme('catppuccin')
