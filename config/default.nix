@@ -12,9 +12,9 @@
 in {
   # Import all your configuration modules here
   imports = [
+    ./plugins.nix
     ./keymaps.nix
     ./options.nix
-    ./plugins.nix
   ];
 
   config = {
@@ -34,12 +34,42 @@ in {
       xclip
     ];
 
-    # autoCmd = [
-    #   {
-    #     event = ["FileType"];
-    #     pattern = ["nix"];
-    #     command = ":echo 'Hello, Nix'<CR>";
-    #   }
-    # ];
+    autoCmd = let
+      def = toString 4;
+      low = toString 2;
+      langs = ["nix" "lua"];
+    in [
+      {
+        event = ["BufWinLeave"];
+        pattern = ["*"];
+        command = ":set tabstop=${def} softtabstop=${def} shiftwidth=${def}";
+      }
+      {
+        event = ["FileType" "BufWinEnter"];
+        pattern = langs;
+        command = ":set tabstop=${low} softtabstop=${low} shiftwidth=${low}";
+      }
+
+      # Highlight on Yank
+      {
+        event = ["TextYankPost"];
+        pattern = ["*"];
+        group = "YankHighlight";
+        callback = {
+          __raw = ''
+            function()
+              vim.highlight.on_yank({
+                higroup = 'IncSearch',
+                timeout = 40,
+              })
+            end
+          '';
+        };
+      }
+    ];
+
+    autoGroups = {
+      YankHighlight.clear = true;
+    };
   };
 }

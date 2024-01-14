@@ -4,9 +4,8 @@
     luasnip.enable = true;
     oil.enable = true;
     treesitter.enable = true;
-    hardtime.enable = true;
+    # hardtime.enable = true;
     nvim-autopairs.enable = true;
-    intellitab.enable = true;
     comment-nvim.enable = true;
 
     lsp-format.enable = true;
@@ -110,13 +109,6 @@
         };
         "<Tab>" = {
           action = "cmp.mapping.select_next_item()";
-          # action = ''
-          #   if cmp.visible() then
-          #     cmp.select_next_item()
-          #   else
-          #     require("intellitab").indent()
-          #   end
-          # '';
           modes = [
             "i"
             "s"
@@ -130,6 +122,8 @@
 
       servers = {
         tsserver.enable = true;
+        java-language-server.enable = true;
+        bashls.enable = true;
         lua-ls = {
           enable = true;
           settings.telemetry.enable = false;
@@ -143,7 +137,6 @@
           enable = true;
           settings.formatting.command = "alejandra -qq";
         };
-        java-language-server.enable = true;
       };
 
       keymaps = {

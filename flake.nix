@@ -6,10 +6,10 @@
     nixvim.url = "github:nix-community/nixvim";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    # bleeding edge plugins (or those, that are not in nixpkgs [yet?])
+    # bleeding edge plugins
     transparent-nvim = {
-        url = "github:xiyaowong/transparent.nvim";
-        flake = false;
+      url = "github:xiyaowong/transparent.nvim";
+      flake = false;
     };
   };
 

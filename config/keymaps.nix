@@ -60,16 +60,16 @@
       mode = ["n" "x"];
     }
 
-    {
-      key = "Q";
-      action = "<nop>";
-      mode = ["n" "x"];
-    }
-    {
-      key = "q:";
-      action = "<nop>";
-      mode = ["n" "x"];
-    }
+    # {
+    #   key = "Q";
+    #   action = "<nop>";
+    #   mode = ["n" "x"];
+    # }
+    # {
+    #   key = "q:";
+    #   action = "<nop>";
+    #   mode = ["n" "x"];
+    # }
 
     {
       key = "-";
