@@ -12,28 +12,34 @@
 in {
   # Import all your configuration modules here
   imports = [
-    ./options.nix
     ./keymaps.nix
+    ./options.nix
     ./plugins.nix
   ];
 
   config = {
-    colorschemes.catppuccin = {
-      enable = true;
-      # transparentBackground = true;
-    };
-
+    colorschemes.catppuccin.enable = true;
     globals.mapleader = " ";
 
-    extraPlugins =
-      # with pkgs.vimPlugins;
-      [
-        # transparent background | https://github.com/xiyaowong/transparent.nvim
-        (mkNvimPlugin inputs.transparent-nvim "transparent.nvim")
-      ];
+    clipboard = {
+      register = "unnamedplus";
+      providers.xclip.enable = true;
+    };
+
+    extraPlugins = [
+      (mkNvimPlugin inputs.transparent-nvim "transparent.nvim") # gh:xiyaowong/transparent.nvim
+    ];
     extraPackages = with pkgs; [
       alejandra
       xclip
     ];
+
+    # autoCmd = [
+    #   {
+    #     event = ["FileType"];
+    #     pattern = ["nix"];
+    #     command = ":echo 'Hello, Nix'<CR>";
+    #   }
+    # ];
   };
 }

@@ -76,5 +76,18 @@
       action = "<ESC><cmd>Oil<CR>";
       mode = ["n" "x"];
     }
+
+    {
+      key = "y";
+      action = "\"+y";
+      mode = ["v"];
+    }
+
+    # FOR DESCRIPTION ONLY
+    # {
+    #   key = "<leader>a";
+    #   action = "<leader>a";
+    #   options.desc = "[A]dd file (harpoon)";
+    # }
   ];
 }

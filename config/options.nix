@@ -8,11 +8,6 @@
     incsearch = true;
     hlsearch = false;
 
-    clipboard = {
-      register = "unnamedplus";
-      providers.xclip.enable = true;
-    };
-
     expandtab = true;
     tabstop = 4;
     softtabstop = 4;
@@ -23,5 +18,12 @@
     fileencoding = "utf-8";
     mouse = "a";
     scrolloff = 4;
+    # cmdheight = 2;
+
+    foldcolumn = "0"; # '0' is not bad
+    foldlevel = 99; # Using ufo provider need a large value, feel free to decrease the value
+    foldlevelstart = 99;
+    foldenable = true;
+    fillchars = "eob: ,fold: ,foldopen:▼,foldsep: ,foldclose:▶";
   };
 }
