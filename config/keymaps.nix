@@ -25,39 +25,46 @@
       key = "<";
       action = "<gv";
       mode = ["x"];
+      options.desc = "Tab Left";
     }
     {
       key = ">";
       action = ">gv";
       mode = ["x"];
+      options.desc = "Tab Right";
     }
 
     {
       key = "<C-s>";
       action = "<cmd>w<CR>";
       mode = ["n" "x" "i"];
+      options.desc = "Save";
     }
 
     {
       key = "<C-u>";
       action = "<C-u>zz";
       mode = ["n" "x" "i"];
+      options.desc = "Scroll Up & Center";
     }
     {
       key = "<C-d>";
       action = "<C-d>zz";
       mode = ["n" "x" "i"];
+      options.desc = "Scroll Down & Center";
     }
 
     {
       key = "<leader>x";
       action = "\"_x";
       mode = ["n" "x"];
+      options.desc = "[X] Void";
     }
     {
       key = "<leader>d";
       action = "\"_d";
       mode = ["n" "x"];
+      options.desc = "[D] Void";
     }
 
     # {
@@ -75,19 +82,31 @@
       key = "-";
       action = "<ESC><cmd>Oil<CR>";
       mode = ["n" "x"];
+      options.desc = "Open FileSystem Navigation";
     }
 
     {
       key = "y";
       action = "\"+y";
       mode = ["v"];
+      options.desc = "Yank Hack";
+    }
+
+    {
+      key = "<leader>e";
+      action = "vim.diagnostic.open_float";
+      mode = ["n"];
+      options.desc = "Open Diagnostics List";
     }
 
     # FOR DESCRIPTION ONLY
-    # {
-    #   key = "<leader>a";
-    #   action = "<leader>a";
-    #   options.desc = "[A]dd file (harpoon)";
-    # }
+    {
+      key = "<leader>s";
+      action = "<leader>s";
+      options = {
+        desc = "[S]earch (Telescope)";
+        remap = true;
+      };
+    }
   ];
 }

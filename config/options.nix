@@ -17,7 +17,8 @@
     encoding = "utf-8";
     fileencoding = "utf-8";
     mouse = "a";
-    scrolloff = 4;
+    scrolloff = 2;
+    colorcolumn = "120";
 
     foldcolumn = "0"; # '0' is not bad
     foldlevel = 99; # Using ufo provider need a large value, feel free to decrease the value
