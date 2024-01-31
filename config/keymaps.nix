@@ -85,17 +85,17 @@
       options.desc = "Open FileSystem Navigation";
     }
 
-    {
-      key = "y";
-      action = "\"+y";
-      mode = ["v"];
-      options.desc = "Yank Hack";
-    }
+    # {
+    #   key = "y";
+    #   action = "\"+y";
+    #   mode = ["v"];
+    #   options.desc = "Yank Hack";
+    # }
 
     {
-      key = "<leader>e";
-      action = "vim.diagnostic.open_float";
-      mode = ["n"];
+      key = "p";
+      action = "P";
+      mode = ["x"];
       options.desc = "Open Diagnostics List";
     }
 

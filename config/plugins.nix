@@ -1,18 +1,18 @@
 {
   config.plugins = {
-    lualine.enable = true;
-    luasnip.enable = true;
-    oil.enable = true;
-    treesitter.enable = true;
     # hardtime.enable = true;
-    nvim-autopairs.enable = true;
-    comment-nvim.enable = true;
-    todo-comments.enable = true;
-    undotree.enable = true;
     cmp-nvim-lsp-signature-help.enable = true;
+    comment-nvim.enable = true;
+    emmet.enable = true;
+    indent-blankline.enable = true;
     lsp-format.enable = true;
     lsp-lines.enable = true;
-    indent-blankline.enable = true;
+    lualine.enable = true;
+    luasnip.enable = true;
+    nvim-autopairs.enable = true;
+    todo-comments.enable = true;
+    treesitter.enable = true;
+    undotree.enable = true;
 
     trouble = {
       enable = true;
@@ -23,6 +23,12 @@
         hint = "H";
         other = "O";
       };
+    };
+
+    oil = {
+      enable = true;
+      deleteToTrash = true;
+      skipConfirmForSimpleEdits = true;
     };
 
     which-key = {
@@ -141,8 +147,11 @@
 
       servers = {
         tsserver.enable = true;
+        html.enable = true;
+        cssls.enable = true;
         java-language-server.enable = true;
         bashls.enable = true;
+        gopls.enable = true;
         lua-ls = {
           enable = true;
           settings.telemetry.enable = false;
@@ -164,51 +173,56 @@
         };
       };
 
-      onAttach = ''
-        local function desc(description)
-          return { noremap = true, silent = true, buffer = bufnr, desc = description }
-        end
+      onAttach =
+        /*
+        lua
+        */
+        ''
+          local function desc(description)
+            return { noremap = true, silent = true, buffer = bufnr, desc = description }
+          end
 
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, desc('[G]oto [D]efinition (LSP)'))
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, desc('[G]oto [D]eclaration (LSP)'))
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, desc('[G]oto [I]mplementation (LSP)'))
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, desc('[G]oto [R]eferences (LSP)'))
-        vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, desc('[G]oto [T]ype definition (LSP)'))
+          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, desc('[G]oto [D]efinition (LSP)'))
+          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, desc('[G]oto [D]eclaration (LSP)'))
+          vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, desc('[G]oto [I]mplementation (LSP)'))
+          vim.keymap.set('n', 'gr', vim.lsp.buf.references, desc('[G]oto [R]eferences (LSP)'))
+          vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, desc('[G]oto [T]ype definition (LSP)'))
 
-        vim.keymap.set('n', '<leader>cl', vim.lsp.codelens.run, desc('[C]ode [L]ens run (LSP)'))
-        vim.keymap.set('n', '<leader>cr', vim.lsp.codelens.refresh, desc('[C]ode lens [R]efresh (LSP)'))
+          vim.keymap.set('n', '<leader>cl', vim.lsp.codelens.run, desc('[C]ode [L]ens run (LSP)'))
+          vim.keymap.set('n', '<leader>cr', vim.lsp.codelens.refresh, desc('[C]ode lens [R]efresh (LSP)'))
 
-        vim.keymap.set('n', '<leader>ds', vim.lsp.buf.document_symbol, desc('[D]ocument [S]ymbol (LSP)'))
-        vim.keymap.set('n', '<leader>ih', function() vim.lsp.inlay_hint(bufnr) end, desc('[I]nlay [H]ints (LSP)'))
+          vim.keymap.set('n', '<leader>e', vim.diagnostics.open_float, desc('Open Diagnostics (LSP)'))
+          vim.keymap.set('n', '<leader>ds', vim.lsp.buf.document_symbol, desc('[D]ocument [S]ymbol (LSP)'))
+          vim.keymap.set('n', '<leader>ih', function() vim.lsp.inlay_hint(bufnr) end, desc('[I]nlay [H]ints (LSP)'))
 
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, desc('Signature Help (LSP)'))
+          vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, desc('Signature Help (LSP)'))
 
-        vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, desc('Rename (LSP)'))
-        vim.keymap.set('n', '<F3>', vim.lsp.buf.format, desc('Format buffer (LSP)'))
-        vim.keymap.set('n', '<F4>', vim.lsp.buf.code_action, desc('Code Action (LSP)'))
+          vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, desc('Rename (LSP)'))
+          vim.keymap.set('n', '<F3>', vim.lsp.buf.format, desc('Format buffer (LSP)'))
+          vim.keymap.set('n', '<F4>', vim.lsp.buf.code_action, desc('Code Action (LSP)'))
 
-        -- Auto-refresh code lenses
-        if not client then
-          return
-        end
-        local function buf_refresh_codeLens()
-          vim.schedule(function()
-            if client.server_capabilities.codeLensProvider then
-              vim.lsp.codelens.refresh()
-              return
-            end
-          end)
-        end
-        local group = api.nvim_create_augroup(string.format('lsp-%s-%s', bufnr, client.id), {})
-        if client.server_capabilities.codeLensProvider then
-          vim.api.nvim_create_autocmd({ 'InsertLeave', 'BufWritePost', 'TextChanged' }, {
-            group = group,
-            callback = buf_refresh_codeLens,
-            buffer = bufnr,
-          })
-          buf_refresh_codeLens()
-        end
-      '';
+          -- Auto-refresh code lenses
+          if not client then
+            return
+          end
+          local function buf_refresh_codeLens()
+            vim.schedule(function()
+              if client.server_capabilities.codeLensProvider then
+                vim.lsp.codelens.refresh()
+                return
+              end
+            end)
+          end
+          local group = api.nvim_create_augroup(string.format('lsp-%s-%s', bufnr, client.id), {})
+          if client.server_capabilities.codeLensProvider then
+            vim.api.nvim_create_autocmd({ 'InsertLeave', 'BufWritePost', 'TextChanged' }, {
+              group = group,
+              callback = buf_refresh_codeLens,
+              buffer = bufnr,
+            })
+            buf_refresh_codeLens()
+          end
+        '';
     };
   };
 }
