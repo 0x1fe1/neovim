@@ -1,22 +1,40 @@
-{
+let
+  # replaces all `foo = {};` with `foo.enable = true;` in the given set.
+  mkEn = builtins.mapAttrs (name: value: {enable = true;});
+in {
   config.plugins =
-    builtins.mapAttrs (name: value: {enable = true;}) {
-      # hardtime = {};
+    mkEn {
+      cmp-buffer = {};
+      cmp-nvim-lsp = {};
       cmp-nvim-lsp-signature-help = {};
+      cmp-path = {};
+      cmp_luasnip = {};
       comment-nvim = {};
       emmet = {};
+      fidget = {};
+      harpoon = {};
+      illuminate = {};
       indent-blankline = {};
+      lsp = {};
       lsp-format = {};
       lsp-lines = {};
+      lspkind = {};
+      lspsaga = {};
       lualine = {};
       luasnip = {};
       nvim-autopairs = {};
+      nvim-cmp = {};
+      nvim-ufo = {};
+      oil = {};
       rainbow-delimiters = {};
+      telescope = {};
       todo-comments = {};
       treesitter = {};
+      trouble = {};
       ts-autotag = {};
       ts-context-commentstring = {};
       undotree = {};
+      which-key = {};
     }
     // {
       trouble = {
@@ -109,6 +127,11 @@
         };
       };
 
+      lspkind = {
+        enable = true;
+        cmp.enable = true;
+      };
+
       nvim-cmp = {
         enable = true;
         autoEnableSources = true;
@@ -118,6 +141,8 @@
           {name = "buffer";}
           {name = "luasnip";}
         ];
+
+        snippet.expand = "luasnip";
 
         mapping = {
           "<C-Space>" = "cmp.mapping.complete()";
@@ -149,28 +174,30 @@
 
       lsp = {
         enable = true;
-
-        servers = {
-          tsserver.enable = true;
-          html.enable = true;
-          cssls.enable = true;
-          java-language-server.enable = true;
-          bashls.enable = true;
-          gopls.enable = true;
-          lua-ls = {
-            enable = true;
-            settings.telemetry.enable = false;
+        servers =
+          mkEn {
+            bashls = {};
+            biome = {};
+            cssls = {};
+            gopls = {};
+            html = {};
+            tsserver = {};
+          }
+          // {
+            lua-ls = {
+              enable = true;
+              settings.telemetry.enable = false;
+            };
+            rust-analyzer = {
+              enable = true;
+              installCargo = true;
+              installRustc = true;
+            };
+            nixd = {
+              enable = true;
+              settings.formatting.command = "alejandra -qq";
+            };
           };
-          rust-analyzer = {
-            enable = true;
-            installCargo = true;
-            installRustc = true;
-          };
-          nixd = {
-            enable = true;
-            settings.formatting.command = "alejandra -qq";
-          };
-        };
 
         keymaps = {
           lspBuf = {
