@@ -12,29 +12,18 @@ in {
       comment-nvim = {};
       # emmet = {};
       fidget = {};
-      harpoon = {};
-      illuminate = {};
       indent-blankline = {};
-      lsp = {};
       lsp-format = {};
       lsp-lines = {};
-      lspkind = {};
-      lspsaga = {};
       lualine = {};
       luasnip = {};
       nvim-autopairs = {};
-      nvim-cmp = {};
-      nvim-ufo = {};
-      oil = {};
       rainbow-delimiters = {};
-      telescope = {};
       todo-comments = {};
       treesitter = {};
-      trouble = {};
       ts-autotag = {};
       ts-context-commentstring = {};
       undotree = {};
-      which-key = {};
     }
     // {
       trouble = {
