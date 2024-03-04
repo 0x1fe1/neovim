@@ -36,22 +36,7 @@ in {
       xclip
     ];
 
-    autoCmd = let
-      def = toString 4;
-      low = toString 2;
-      langs = ["nix" "lua"];
-    in [
-      {
-        event = ["BufWinLeave"];
-        pattern = ["*"];
-        command = ":set tabstop=${def} softtabstop=${def} shiftwidth=${def}";
-      }
-      {
-        event = ["FileType" "BufWinEnter"];
-        pattern = langs;
-        command = ":set tabstop=${low} softtabstop=${low} shiftwidth=${low}";
-      }
-
+    autoCmd = [
       # Highlight on Yank
       {
         event = ["TextYankPost"];
@@ -72,6 +57,16 @@ in {
 
     autoGroups = {
       YankHighlight.clear = true;
+    };
+
+    extraFiles = {
+      "ftplugin/nix.lua" =
+        /*
+        lua
+        */
+        ''
+          vim.cmd("setlocal tabstop=2 softtabstop=2 shiftwidth=2")
+        '';
     };
 
     # HACK/* lua */

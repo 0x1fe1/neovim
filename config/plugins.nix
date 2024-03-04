@@ -10,7 +10,7 @@ in {
       cmp-path = {};
       cmp_luasnip = {};
       comment-nvim = {};
-      emmet = {};
+      # emmet = {};
       fidget = {};
       harpoon = {};
       illuminate = {};
@@ -149,15 +149,15 @@ in {
           "<C-d>" = "cmp.mapping.scroll_docs(-4)";
           "<C-e>" = "cmp.mapping.close()";
           "<C-f>" = "cmp.mapping.scroll_docs(4)";
-          "<CR>" = "cmp.mapping.confirm({ select = true })";
-          "<S-Tab>" = {
+          "<C-y>" = "cmp.mapping.confirm({ select = true })";
+          "<C-p>" = {
             action = "cmp.mapping.select_prev_item()";
             modes = [
               "i"
               "s"
             ];
           };
-          "<Tab>" = {
+          "<C-n>" = {
             action = "cmp.mapping.select_next_item()";
             modes = [
               "i"
@@ -182,6 +182,7 @@ in {
             gopls = {};
             html = {};
             tsserver = {};
+            java-language-server = {};
           }
           // {
             lua-ls = {
@@ -196,6 +197,10 @@ in {
             nixd = {
               enable = true;
               settings.formatting.command = "alejandra -qq";
+            };
+            pylsp = {
+              enable = true;
+              settings.plugins.autopep8.enabled = true;
             };
           };
 
