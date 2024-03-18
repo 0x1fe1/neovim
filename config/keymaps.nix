@@ -55,13 +55,13 @@
     }
 
     {
-      key = "<leader>x";
+      key = "x";
       action = "\"_x";
       mode = ["n" "x"];
       options.desc = "[X] Void";
     }
     {
-      key = "<leader>d";
+      key = "d";
       action = "\"_d";
       mode = ["n" "x"];
       options.desc = "[D] Void";
