@@ -28,7 +28,7 @@ in {
     // {
       trouble = {
         enable = true;
-        signs = {
+        settings.signs = {
           error = "E";
           warning = "W";
           information = "I";
@@ -56,22 +56,6 @@ in {
       nvim-ufo = {
         enable = true;
         preview.winConfig.winblend = 10;
-      };
-
-      harpoon = {
-        enable = true;
-        keymaps = {
-          addFile = "<leader>a";
-          toggleQuickMenu = "<leader>m";
-          navFile = {
-            "1" = "<C-1>";
-            "2" = "<C-2>";
-            "3" = "<C-3>";
-            "4" = "<C-4>";
-            "5" = "<C-5>";
-            "6" = "<C-6>";
-          };
-        };
       };
 
       telescope = {
@@ -121,37 +105,27 @@ in {
         cmp.enable = true;
       };
 
-      nvim-cmp = {
+      cmp = {
         enable = true;
         autoEnableSources = true;
-        sources = [
-          {name = "nvim_lsp";}
-          {name = "path";}
-          {name = "buffer";}
-          {name = "luasnip";}
-        ];
+        settings = {
+          sources = [
+            {name = "nvim_lsp";}
+            {name = "luasnip";}
+            {name = "path";}
+            {name = "buffer";}
+          ];
 
-        snippet.expand = "luasnip";
+          snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
 
-        mapping = {
-          "<C-Space>" = "cmp.mapping.complete()";
-          "<C-d>" = "cmp.mapping.scroll_docs(-4)";
-          "<C-e>" = "cmp.mapping.close()";
-          "<C-f>" = "cmp.mapping.scroll_docs(4)";
-          "<C-y>" = "cmp.mapping.confirm({ select = true })";
-          "<C-p>" = {
-            action = "cmp.mapping.select_prev_item()";
-            modes = [
-              "i"
-              "s"
-            ];
-          };
-          "<C-n>" = {
-            action = "cmp.mapping.select_next_item()";
-            modes = [
-              "i"
-              "s"
-            ];
+          mapping = {
+            "<C-Space>" = "cmp.mapping.complete()";
+            "<C-d>" = "cmp.mapping.scroll_docs(-4)";
+            "<C-e>" = "cmp.mapping.close()";
+            "<C-f>" = "cmp.mapping.scroll_docs(4)";
+            "<C-y>" = "cmp.mapping.confirm({ select = true })";
+            "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+            "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
           };
         };
       };
@@ -171,7 +145,7 @@ in {
             gopls = {};
             html = {};
             tsserver = {};
-            java-language-server = {};
+            # java-language-server = {};
           }
           // {
             lua-ls = {

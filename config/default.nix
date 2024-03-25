@@ -28,7 +28,12 @@ in {
 
     extraPlugins = with pkgs.vimPlugins; [
       hover-nvim
-      (mkNvimPlugin inputs.transparent-nvim "transparent.nvim") # gh:xiyaowong/transparent.nvim
+
+      # gh:ThePrimeagen/harpoon/tree/harpoon2
+      (mkNvimPlugin inputs.harpoon "harpoon")
+
+      # gh:xiyaowong/transparent.nvim
+      (mkNvimPlugin inputs.transparent-nvim "transparent.nvim")
     ];
 
     extraPackages = with pkgs; [
@@ -108,6 +113,11 @@ in {
         }
         vim.keymap.set("n", "K", require("hover").hover, {desc = "hover.nvim"})
         vim.keymap.set("n", "gK", require("hover").hover_select, {desc = "hover.nvim (select)"})
+
+
+
+        -- NOTE harpoon2
+        require("harpoon"):setup()
       '';
   };
 }

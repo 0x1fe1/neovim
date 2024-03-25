@@ -61,7 +61,7 @@
       options.desc = "[X] Void";
     }
     {
-      key = "d";
+      key = "<leader>d";
       action = "\"_d";
       mode = ["n" "x"];
       options.desc = "[D] Void";
@@ -97,6 +97,64 @@
       action = "P";
       mode = ["x"];
       options.desc = "Open Diagnostics List";
+    }
+
+    # harpoon2
+    {
+      key = "<leader>a";
+      action = "function() require('harpoon'):list():append() end";
+      options.desc = "[A]dd file to (Harpoon)";
+      mode = ["n"];
+      lua = true;
+    }
+    {
+      key = "<leader>m";
+      action = "function() require('harpoon').ui:toggle_quick_menu(require('harpoon'):list()) end";
+      options.desc = "[M]ap of files (Harpoon)";
+      mode = ["n"];
+      lua = true;
+    }
+    {
+      key = "<C-1>";
+      action = "function() require('harpoon'):list():select(1) end";
+      options.desc = "Select file #1 (Harpoon)";
+      mode = ["n"];
+      lua = true;
+    }
+    {
+      key = "<C-2>";
+      action = "function() require('harpoon'):list():select(2) end";
+      options.desc = "Select file #2 (Harpoon)";
+      mode = ["n"];
+      lua = true;
+    }
+    {
+      key = "<C-3>";
+      action = "function() require('harpoon'):list():select(3) end";
+      options.desc = "Select file #3 (Harpoon)";
+      mode = ["n"];
+      lua = true;
+    }
+    {
+      key = "<C-4>";
+      action = "function() require('harpoon'):list():select(4) end";
+      options.desc = "Select file #4 (Harpoon)";
+      mode = ["n"];
+      lua = true;
+    }
+    {
+      key = "<C-5>";
+      action = "function() require('harpoon'):list():select(5) end";
+      options.desc = "Select file #5 (Harpoon)";
+      mode = ["n"];
+      lua = true;
+    }
+    {
+      key = "<C-6>";
+      action = "function() require('harpoon'):list():select(6) end";
+      options.desc = "Select file #6 (Harpoon)";
+      mode = ["n"];
+      lua = true;
     }
 
     # FOR DESCRIPTION ONLY

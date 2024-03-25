@@ -11,6 +11,10 @@
       url = "github:xiyaowong/transparent.nvim";
       flake = false;
     };
+    harpoon = {
+      url = "github:ThePrimeagen/harpoon/harpoon2";
+      flake = false;
+    };
   };
 
   outputs = {
