@@ -28,6 +28,7 @@ in {
 
     extraPlugins = with pkgs.vimPlugins; [
       hover-nvim
+      vim-move
 
       # gh:ThePrimeagen/harpoon/tree/harpoon2
       (mkNvimPlugin inputs.harpoon "harpoon")

@@ -133,6 +133,7 @@ in {
       lspsaga = {
         enable = true;
         hover.openCmd = "!brave";
+        lightbulb.virtualText = false;
       };
 
       lsp = {
@@ -145,6 +146,7 @@ in {
             gopls = {};
             html = {};
             tsserver = {};
+            clangd = {};
             # java-language-server = {};
           }
           // {
