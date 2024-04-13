@@ -40,6 +40,7 @@ in {
     extraPackages = with pkgs; [
       alejandra
       xclip
+      nodejs_18
     ];
 
     autoCmd = [

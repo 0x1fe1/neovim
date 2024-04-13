@@ -10,6 +10,7 @@ in {
       cmp-path = {};
       cmp_luasnip = {};
       comment-nvim = {};
+      copilot-vim = {};
       # emmet = {};
       fidget = {};
       indent-blankline = {};
