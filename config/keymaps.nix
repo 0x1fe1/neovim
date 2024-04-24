@@ -115,6 +115,13 @@
       lua = true;
     }
     {
+      key = "<leader>cm";
+      action = "function() require('harpoon'):list():clear() end";
+      options.desc = "[C]lear the [M]ap of files (Harpoon)";
+      mode = ["n"];
+      lua = true;
+    }
+    {
       key = "<C-1>";
       action = "function() require('harpoon'):list():select(1) end";
       options.desc = "Select file #1 (Harpoon)";

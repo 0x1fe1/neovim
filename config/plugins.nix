@@ -10,7 +10,6 @@ in {
       cmp-path = {};
       cmp_luasnip = {};
       comment-nvim = {};
-      copilot-vim = {};
       # emmet = {};
       fidget = {};
       indent-blankline = {};
@@ -135,6 +134,15 @@ in {
         enable = true;
         hover.openCmd = "!brave";
         lightbulb.virtualText = false;
+      };
+
+      clangd-extensions = {
+        enable = true;
+        enableOffsetEncodingWorkaround = true;
+      };
+
+      copilot-lua = {
+        enable = true;
       };
 
       lsp = {

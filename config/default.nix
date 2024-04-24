@@ -29,9 +29,10 @@ in {
     extraPlugins = with pkgs.vimPlugins; [
       hover-nvim
       vim-move
+      harpoon2
 
       # gh:ThePrimeagen/harpoon/tree/harpoon2
-      (mkNvimPlugin inputs.harpoon "harpoon")
+      # (mkNvimPlugin inputs.harpoon "harpoon")
 
       # gh:xiyaowong/transparent.nvim
       (mkNvimPlugin inputs.transparent-nvim "transparent.nvim")
@@ -120,6 +121,11 @@ in {
 
         -- NOTE harpoon2
         require("harpoon"):setup()
+
+
+        -- HACK
+        vim.g.loaded_matchparen = 1
+        -- ^^^ fix some weird harpoon-related issue, when accessing a 4th buffer that starts with the same bracket
       '';
   };
 }
