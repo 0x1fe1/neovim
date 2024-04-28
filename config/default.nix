@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }: let
   # from github.com/mrcjkb/kickstart-nix.nvim
@@ -9,12 +10,14 @@
       inherit pname src;
       version = src.lastModifiedDate;
     };
+
+  keymaps = import ./keymaps.nix {inherit lib;};
 in {
   # Import all your configuration modules here
   imports = [
     ./plugins.nix
-    ./keymaps.nix
     ./options.nix
+    keymaps
   ];
 
   config = {
