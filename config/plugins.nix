@@ -143,20 +143,32 @@ in {
 
       copilot-lua = {
         enable = true;
+        suggestion.keymap = {
+          accept = "<A-y>";
+          next = "<A-n>";
+          prev = "<A-p>";
+        };
       };
+
+      # none-ls = {
+      #   enable = true;
+      #   enableLspFormat = true;
+      #   sources.formatting.google_java_format.enable = true;
+      # };
 
       lsp = {
         enable = true;
         servers =
           mkEn {
             bashls = {};
-            biome = {};
+            # biome = {};
+            clangd = {};
             cssls = {};
             gopls = {};
             html = {};
-            tsserver = {};
-            clangd = {};
+            htmx = {};
             # java-language-server = {};
+            tsserver = {};
           }
           // {
             lua-ls = {
