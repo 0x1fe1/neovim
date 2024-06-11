@@ -1,30 +1,32 @@
 let
   # replaces all `foo = {};` with `foo.enable = true;` in the given set.
-  mkEn = builtins.mapAttrs (name: value: {enable = true;});
-in {
+  mkEn = builtins.mapAttrs (name: value: { enable = true; });
+in
+{
   config.plugins =
-    mkEn {
-      cmp-buffer = {};
-      cmp-nvim-lsp = {};
-      cmp-nvim-lsp-signature-help = {};
-      cmp-path = {};
-      cmp_luasnip = {};
-      comment-nvim = {};
-      # emmet = {};
-      fidget = {};
-      indent-blankline = {};
-      lsp-format = {};
-      lsp-lines = {};
-      lualine = {};
-      luasnip = {};
-      nvim-autopairs = {};
-      rainbow-delimiters = {};
-      todo-comments = {};
-      treesitter = {};
-      ts-autotag = {};
-      ts-context-commentstring = {};
-      undotree = {};
-    }
+    mkEn
+      {
+        cmp-buffer = { };
+        cmp-nvim-lsp = { };
+        cmp-nvim-lsp-signature-help = { };
+        cmp-path = { };
+        cmp_luasnip = { };
+        comment = { };
+        # emmet = {};
+        fidget = { };
+        indent-blankline = { };
+        lsp-format = { };
+        lsp-lines = { };
+        lualine = { };
+        nvim-autopairs = { };
+        nvim-colorizer = { };
+        rainbow-delimiters = { };
+        todo-comments = { };
+        treesitter = { };
+        ts-autotag = { };
+        ts-context-commentstring = { };
+        undotree = { };
+      }
     // {
       trouble = {
         enable = true;
@@ -39,8 +41,10 @@ in {
 
       oil = {
         enable = true;
-        deleteToTrash = true;
-        skipConfirmForSimpleEdits = true;
+        settings = {
+          skip_confirm_for_simple_edits = true;
+          delete_to_trash = true;
+        };
       };
 
       which-key = {
@@ -63,39 +67,39 @@ in {
         keymaps = {
           "<leader>?" = {
             action = "oldfiles";
-            desc = "Recent Files (Telescope)";
+            options.desc = "Recent Files (Telescope)";
           };
           "<leader><space>" = {
             action = "buffers";
-            desc = "Buffers (Telescope)";
+            options.desc = "Buffers (Telescope)";
           };
           "<leader>gf" = {
             action = "git_files";
-            desc = "[G]it [F]iles (Telescope)";
+            options.desc = "[G]it [F]iles (Telescope)";
           };
           "<leader>sf" = {
             action = "find_files";
-            desc = "[S]earch [F]iles (Telescope)";
+            options.desc = "[S]earch [F]iles (Telescope)";
           };
           "<leader>sh" = {
             action = "help_tags";
-            desc = "[S]earch [H]elp (Telescope)";
+            options.desc = "[S]earch [H]elp (Telescope)";
           };
           "<leader>sw" = {
             action = "grep_string";
-            desc = "[S]earch [W]ord (Telescope)";
+            options.desc = "[S]earch [W]ord (Telescope)";
           };
           "<leader>sg" = {
             action = "live_grep";
-            desc = "[S]earch [G]rep (Telescope)";
+            options.desc = "[S]earch [G]rep (Telescope)";
           };
           "<leader>sd" = {
             action = "diagnostics";
-            desc = "[S]earch [D]iagnostics (Telescope)";
+            options.desc = "[S]earch [D]iagnostics (Telescope)";
           };
           "<leader>sr" = {
             action = "resume";
-            desc = "[S]earch [R]esume (Telescope)";
+            options.desc = "[S]earch [R]esume (Telescope)";
           };
         };
       };
@@ -105,15 +109,30 @@ in {
         cmp.enable = true;
       };
 
+      # adds a preset of snippets
+      friendly-snippets.enable = true;
+      luasnip = {
+        enable = true;
+        extraConfig = {
+          enable_autosnippets = true;
+        };
+        fromVscode = [
+          {
+            include = [ "html" ];
+            lazyLoad = true;
+          }
+        ];
+      };
+
       cmp = {
         enable = true;
         autoEnableSources = true;
         settings = {
           sources = [
-            {name = "nvim_lsp";}
-            {name = "luasnip";}
-            {name = "path";}
-            {name = "buffer";}
+            { name = "nvim_lsp"; }
+            { name = "luasnip"; }
+            { name = "path"; }
+            { name = "buffer"; }
           ];
 
           snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
@@ -123,9 +142,45 @@ in {
             "<C-d>" = "cmp.mapping.scroll_docs(-4)";
             "<C-e>" = "cmp.mapping.close()";
             "<C-f>" = "cmp.mapping.scroll_docs(4)";
-            "<C-y>" = "cmp.mapping.confirm({ select = true })";
-            "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-            "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+            # "<C-y>" = "cmp.mapping.confirm({ select = true })";
+            # "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+            # "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+
+            "<C-y>" = ''
+              cmp.mapping(function(fallback)
+                  if cmp.visible() then
+                      if require("luasnip").expandable() then
+                          require("luasnip").expand()
+                      else
+                          cmp.confirm({select = true})
+                      end
+                  else
+                      fallback()
+                  end
+              end)
+            '';
+            "<C-n>" = ''
+              cmp.mapping(function(fallback)
+                if cmp.visible() then
+                  cmp.select_next_item()
+                elseif require("luasnip").locally_jumpable(1) then
+                  require("luasnip").jump(1)
+                else
+                  fallback()
+                end
+              end, { "i", "s" })
+            '';
+            "<C-p>" = ''
+              cmp.mapping(function(fallback)
+                if cmp.visible() then
+                  cmp.select_prev_item()
+                elseif require("luasnip").locally_jumpable(-1) then
+                  require("luasnip").jump(-1)
+                else
+                  fallback()
+                end
+              end, { "i", "s" })
+            '';
           };
         };
       };
@@ -141,14 +196,14 @@ in {
         enableOffsetEncodingWorkaround = true;
       };
 
-      copilot-lua = {
-        enable = true;
-        suggestion.keymap = {
-          accept = "<A-y>";
-          next = "<A-n>";
-          prev = "<A-p>";
-        };
-      };
+      # copilot-lua = {
+      #   enable = true;
+      #   suggestion.keymap = {
+      #     accept = "<A-y>";
+      #     next = "<A-n>";
+      #     prev = "<A-p>";
+      #   };
+      # };
 
       # none-ls = {
       #   enable = true;
@@ -159,17 +214,18 @@ in {
       lsp = {
         enable = true;
         servers =
-          mkEn {
-            bashls = {};
-            # biome = {};
-            clangd = {};
-            cssls = {};
-            gopls = {};
-            html = {};
-            htmx = {};
-            # java-language-server = {};
-            tsserver = {};
-          }
+          mkEn
+            {
+              bashls = { };
+              # biome = {};
+              clangd = { };
+              cssls = { };
+              gopls = { };
+              html = { };
+              htmx = { };
+              # java-language-server = {};
+              tsserver = { };
+            }
           // {
             lua-ls = {
               enable = true;
@@ -182,7 +238,14 @@ in {
             };
             nixd = {
               enable = true;
-              settings.formatting.command = "alejandra -qq";
+              settings = {
+                formatting.command = [ "nixpkgs-fmt" ];
+                diagnostic.suppress = [ "sema-escaping-with" ];
+                options = {
+                  nixos.expr = ''(builtins.getFlake "/home/pango/system").nixosConfigurations.desktop.options'';
+                  home_manager.expr = ''(builtins.getFlake "/home/pango/system").homeConfigurations.desktop.options'';
+                };
+              };
             };
             pylsp = {
               enable = true;
@@ -206,58 +269,6 @@ in {
             "<leader>e" = "open_float";
           };
         };
-
-        onAttach =
-          /*
-          lua
-          */
-          ''
-            local function desc(description)
-              return { noremap = true, silent = true, buffer = bufnr, desc = description }
-            end
-
-            -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, desc('[G]oto [D]efinition (LSP)'))
-            -- vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, desc('[G]oto [D]eclaration (LSP)'))
-            -- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, desc('[G]oto [I]mplementation (LSP)'))
-            -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, desc('[G]oto [R]eferences (LSP)'))
-            -- vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, desc('[G]oto [T]ype definition (LSP)'))
-
-            -- vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, desc('Rename (LSP)'))
-            -- vim.keymap.set('n', '<F3>', vim.lsp.buf.format, desc('Format buffer (LSP)'))
-            -- vim.keymap.set('n', '<F4>', vim.lsp.buf.code_action, desc('Code Action (LSP)'))
-
-            vim.keymap.set('n', '<leader>cl', vim.lsp.codelens.run, desc('[C]ode [L]ens run (LSP)'))
-            vim.keymap.set('n', '<leader>cr', vim.lsp.codelens.refresh, desc('[C]ode lens [R]efresh (LSP)'))
-
-            -- vim.keymap.set('n', '<leader>e', vim.diagnostics.open_float, desc('Open Diagnostics (LSP)'))
-            vim.keymap.set('n', '<leader>ds', vim.lsp.buf.document_symbol, desc('[D]ocument [S]ymbol (LSP)'))
-            vim.keymap.set('n', '<leader>ih', function() vim.lsp.inlay_hint(bufnr) end, desc('[I]nlay [H]ints (LSP)'))
-
-            vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, desc('Signature Help (LSP)'))
-
-
-            -- Auto-refresh code lenses
-            if not client then
-              return
-            end
-            local function buf_refresh_codeLens()
-              vim.schedule(function()
-                if client.server_capabilities.codeLensProvider then
-                  vim.lsp.codelens.refresh()
-                  return
-                end
-              end)
-            end
-            local group = api.nvim_create_augroup(string.format('lsp-%s-%s', bufnr, client.id), {})
-            if client.server_capabilities.codeLensProvider then
-              vim.api.nvim_create_autocmd({ 'InsertLeave', 'BufWritePost', 'TextChanged' }, {
-                group = group,
-                callback = buf_refresh_codeLens,
-                buffer = bufnr,
-              })
-              buf_refresh_codeLens()
-            end
-          '';
       };
     };
 }

@@ -1,9 +1,9 @@
-{
-  inputs,
-  pkgs,
-  lib,
-  ...
-}: let
+{ inputs
+, pkgs
+, lib
+, ...
+}:
+let
   # from github.com/mrcjkb/kickstart-nix.nvim
   mkNvimPlugin = src: pname:
     pkgs.vimUtils.buildVimPlugin {
@@ -11,8 +11,9 @@
       version = src.lastModifiedDate;
     };
 
-  keymaps = import ./keymaps.nix {inherit lib;};
-in {
+  keymaps = import ./keymaps.nix { inherit lib; };
+in
+{
   # Import all your configuration modules here
   imports = [
     ./plugins.nix
@@ -42,16 +43,16 @@ in {
     ];
 
     extraPackages = with pkgs; [
-      alejandra
+      # alejandra
       xclip
-      nodejs_18
+      # nodejs_18
     ];
 
     autoCmd = [
       # Highlight on Yank
       {
-        event = ["TextYankPost"];
-        pattern = ["*"];
+        event = [ "TextYankPost" ];
+        pattern = [ "*" ];
         group = "YankHighlight";
         callback = {
           __raw = ''
@@ -71,13 +72,9 @@ in {
     };
 
     extraFiles = {
-      "ftplugin/nix.lua" =
-        /*
-        lua
-        */
-        ''
-          vim.cmd("setlocal tabstop=2 softtabstop=2 shiftwidth=2")
-        '';
+      "ftplugin/toml.lua" = ''vim.cmd("setlocal tabstop=2 softtabstop=2 shiftwidth=2")'';
+      "ftplugin/nix.lua" = ''vim.cmd("setlocal tabstop=2 softtabstop=2 shiftwidth=2")'';
+      "ftplugin/c.lua" = ''vim.cmd("setlocal tabstop=2 softtabstop=2 shiftwidth=2")'';
     };
 
     # HACK/* lua */

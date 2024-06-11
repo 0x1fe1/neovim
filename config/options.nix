@@ -1,5 +1,5 @@
 {
-  config.options = {
+  config.opts = {
     number = true;
     relativenumber = true;
     cursorline = true;
@@ -17,7 +17,7 @@
     encoding = "utf-8";
     fileencoding = "utf-8";
     mouse = "a";
-    scrolloff = 2;
+    # scrolloff = 2;
     colorcolumn = "120";
 
     foldcolumn = "0"; # '0' is not bad
