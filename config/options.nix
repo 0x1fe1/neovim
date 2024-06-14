@@ -24,7 +24,7 @@
     foldlevel = 99; # Using ufo provider need a large value, feel free to decrease the value
     foldlevelstart = 99;
     foldenable = true;
-    fillchars = "eob: ,fold: ,foldopen:▼,foldsep: ,foldclose:▶";
+    fillchars = "eob: ,fold: ";
 
     splitright = true;
     splitbelow = true;
@@ -36,5 +36,17 @@
     undodir = "/home/pango/.vim/undodir";
     undolevels = 1000;
     undoreload = 10000;
+
+    list = true;
+    listchars = {
+      # tab = "|-";
+      trail = "-";
+      space = "·";
+      # multispace = " ";
+      # leadmultispace = "|> |";
+      # extend = " ";
+      # pre = " ";
+      # post = " ";
+    };
   };
 }

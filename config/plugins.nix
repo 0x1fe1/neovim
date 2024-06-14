@@ -16,7 +16,7 @@ in
         fidget = { };
         indent-blankline = { };
         lsp-format = { };
-        lsp-lines = { };
+        # lsp-lines = { };
         lualine = { };
         nvim-autopairs = { };
         nvim-colorizer = { };
@@ -52,10 +52,10 @@ in
         window.winblend = 10;
       };
 
-      illuminate = {
-        enable = true;
-        delay = 1000;
-      };
+      # illuminate = {
+      #   enable = true;
+      #   delay = 1000;
+      # };
 
       nvim-ufo = {
         enable = true;
@@ -142,11 +142,7 @@ in
             "<C-d>" = "cmp.mapping.scroll_docs(-4)";
             "<C-e>" = "cmp.mapping.close()";
             "<C-f>" = "cmp.mapping.scroll_docs(4)";
-            # "<C-y>" = "cmp.mapping.confirm({ select = true })";
-            # "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-            # "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-
-            "<C-y>" = ''
+            "<C-y>" = /* lua */ ''
               cmp.mapping(function(fallback)
                   if cmp.visible() then
                       if require("luasnip").expandable() then
@@ -159,7 +155,7 @@ in
                   end
               end)
             '';
-            "<C-n>" = ''
+            "<C-n>" = /* lua */ ''
               cmp.mapping(function(fallback)
                 if cmp.visible() then
                   cmp.select_next_item()
@@ -170,7 +166,7 @@ in
                 end
               end, { "i", "s" })
             '';
-            "<C-p>" = ''
+            "<C-p>" = /* lua */ ''
               cmp.mapping(function(fallback)
                 if cmp.visible() then
                   cmp.select_prev_item()
@@ -208,7 +204,10 @@ in
       # none-ls = {
       #   enable = true;
       #   enableLspFormat = true;
-      #   sources.formatting.google_java_format.enable = true;
+      #   sources.formatting = {
+      #     # google_java_format.enable = true;
+      #     elm_format.enable = true;
+      #   };
       # };
 
       lsp = {
@@ -220,6 +219,8 @@ in
               # biome = {};
               clangd = { };
               cssls = { };
+              elmls = { };
+              jsonls = { };
               gopls = { };
               html = { };
               htmx = { };
