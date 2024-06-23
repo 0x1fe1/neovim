@@ -23,6 +23,7 @@ in
         rainbow-delimiters = { };
         todo-comments = { };
         treesitter = { };
+        trim = { };
         ts-autotag = { };
         ts-context-commentstring = { };
         undotree = { };
@@ -57,10 +58,10 @@ in
       #   delay = 1000;
       # };
 
-      nvim-ufo = {
-        enable = true;
-        preview.winConfig.winblend = 10;
-      };
+      # nvim-ufo = {
+      #   enable = true;
+      #   preview.winConfig.winblend = 10;
+      # };
 
       telescope = {
         enable = true;
@@ -244,7 +245,7 @@ in
                 diagnostic.suppress = [ "sema-escaping-with" ];
                 options = {
                   nixos.expr = ''(builtins.getFlake "/home/pango/system").nixosConfigurations.desktop.options'';
-                  home_manager.expr = ''(builtins.getFlake "/home/pango/system").homeConfigurations.desktop.options'';
+                  home-manager.expr = ''(builtins.getFlake "/home/pango/system").homeConfigurations.desktop.options'';
                 };
               };
             };
