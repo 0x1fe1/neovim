@@ -39,7 +39,7 @@
 
     list = true;
     listchars = {
-      # tab = "|-";
+      tab = "  ";
       trail = "-";
       space = "·";
       # multispace = " ";

@@ -12,18 +12,20 @@ let
     };
 
   keymaps = import ./keymaps.nix { inherit lib; };
+  plugins = import ./plugins.nix { inherit pkgs; };
 in
 {
   # Import all your configuration modules here
   imports = [
-    ./plugins.nix
+    plugins
     ./options.nix
     keymaps
   ];
 
   config = {
-    colorschemes.catppuccin.enable = true;
-    # colorschemes.tokyonight.enable = true;
+    colorschemes.tokyonight.enable = true;
+    # colorschemes.catppuccin.enable = true;
+    # colorschemes.gruvbox.enable = true;
     globals.mapleader = " ";
 
     clipboard = {

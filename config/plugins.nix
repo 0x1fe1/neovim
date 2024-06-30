@@ -1,3 +1,4 @@
+{ pkgs ? import <nixpkgs> { } }:
 let
   # replaces all `foo = {};` with `foo.enable = true;` in the given set.
   mkEn = builtins.mapAttrs (name: value: { enable = true; });
@@ -6,6 +7,7 @@ in
   config.plugins =
     mkEn
       {
+        # bufferline = { };
         cmp-buffer = { };
         cmp-nvim-lsp = { };
         cmp-nvim-lsp-signature-help = { };
@@ -18,6 +20,8 @@ in
         lsp-format = { };
         # lsp-lines = { };
         lualine = { };
+        # nvim-tree = { };
+        # neo-tree = { };
         nvim-autopairs = { };
         nvim-colorizer = { };
         rainbow-delimiters = { };
@@ -218,7 +222,6 @@ in
             {
               bashls = { };
               # biome = {};
-              clangd = { };
               cssls = { };
               elmls = { };
               jsonls = { };
@@ -252,6 +255,16 @@ in
             pylsp = {
               enable = true;
               settings.plugins.autopep8.enabled = true;
+            };
+            # clangd = {
+            #   enable = true;
+            #   cmd = [ "${pkgs.clang-tools}/bin/clangd" "-style=file:/home/pango/neovim/dots/.clang-format" ];
+            # };
+            ccls = {
+              enable = true;
+              initOptions.clang = {
+                extraArgs = [ "-style=file:/home/pango/neovim/dots/.clang-format" ];
+              };
             };
           };
 
