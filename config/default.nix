@@ -23,8 +23,8 @@ in
   ];
 
   config = {
-    colorschemes.tokyonight.enable = true;
-    # colorschemes.catppuccin.enable = true;
+    # colorschemes.tokyonight.enable = true;
+    colorschemes.catppuccin.enable = true;
     # colorschemes.gruvbox.enable = true;
     globals.mapleader = " ";
 
@@ -48,7 +48,7 @@ in
     extraPackages = with pkgs; [
       xclip
       # alejandra
-      elmPackages.elm-format
+      # elmPackages.elm-format
       # nodejs_18
     ];
 
@@ -75,28 +75,34 @@ in
       YankHighlight.clear = true;
     };
 
-    extraFiles = {
-      "ftplugin/toml.lua" = ''vim.cmd("setlocal tabstop=2 softtabstop=2 shiftwidth=2")'';
-      "ftplugin/nix.lua" = ''vim.cmd("setlocal tabstop=2 softtabstop=2 shiftwidth=2")'';
-      "ftplugin/c.lua" = ''vim.cmd("setlocal tabstop=2 softtabstop=2 shiftwidth=2")'';
-    };
+    extraFiles =
+      let
+        text = ''
+          vim.opt.tabstop = 2
+          vim.opt.shiftwidth = 2
+          vim.opt.expandtab = true
+        '';
+      in
+      {
+        "ftplugin/nix.lua".text = text;
+        # "ftplugin/toml.lua".text = text;
+        # "ftplugin/c.lua".text = text;
+      };
 
     extraConfigLuaPost = /* lua */ ''
       -- NOTE indent-blankline multicolor
-      local ibl_high = { 'ctpRed', 'ctpPeach', 'ctpYellow', 'ctpGreen', 'ctpSky', 'ctpBlue', 'ctpMauve' }
-      require('ibl.hooks').register(require('ibl.hooks').type.HIGHLIGHT_SETUP, function()
-        local ibl_high_colors = {'#F38BA8', '#FAB387', '#F9E2AF', '#A6E3A1', '#89DCEB', '#89B4FA', '#CBA6F7'}
-        for i, name in ipairs(ibl_high) do
-          vim.api.nvim_set_hl(0, name, { fg = ibl_high_colors[i] })
-        end
-      end)
-      require('ibl').setup({
-        indent = { highlight = ibl_high, char = '┊' },
-        scope = { enabled = false },
-        viewport_buffer = { min = 128, max = 512 },
-      })
-
-
+      -- local ibl_high = { 'ctpRed', 'ctpPeach', 'ctpYellow', 'ctpGreen', 'ctpSky', 'ctpBlue', 'ctpMauve' }
+      -- require('ibl.hooks').register(require('ibl.hooks').type.HIGHLIGHT_SETUP, function()
+      --   local ibl_high_colors = {'#F38BA8', '#FAB387', '#F9E2AF', '#A6E3A1', '#89DCEB', '#89B4FA', '#CBA6F7'}
+      --   for i, name in ipairs(ibl_high) do
+      --     vim.api.nvim_set_hl(0, name, { fg = ibl_high_colors[i] })
+      --   end
+      -- end)
+      -- require('ibl').setup({
+      --   indent = { highlight = ibl_high, char = '┆' },
+      --   scope = { enabled = false },
+      --   viewport_buffer = { min = 128, max = 512 },
+      -- })
 
       -- NOTE hover.nvim
       require("hover").setup {
@@ -120,10 +126,8 @@ in
 
       -- NOTE harpoon2
       require("harpoon"):setup()
-
-
       -- HACK
-      vim.g.loaded_matchparen = 1
+      -- vim.g.loaded_matchparen = 1
       -- ^^^ fix some weird harpoon-related issue, when accessing a 4th buffer that starts with the same bracket
     '';
   };

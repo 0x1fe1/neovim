@@ -4,21 +4,22 @@
     relativenumber = true;
     cursorline = true;
     lazyredraw = true;
-    showmatch = false; # Highlight matching parentheses, etc
+    showmatch = true; # Highlight matching parentheses, etc
     incsearch = true;
     hlsearch = false;
+    smartcase = true;
+    ignorecase = true;
 
-    expandtab = true;
     tabstop = 4;
-    softtabstop = 4;
     shiftwidth = 4;
+    expandtab = true;
 
     signcolumn = "yes";
     encoding = "utf-8";
     fileencoding = "utf-8";
     mouse = "a";
     # scrolloff = 2;
-    colorcolumn = "120";
+    colorcolumn = "100";
 
     foldcolumn = "0"; # '0' is not bad
     foldlevel = 99; # Using ufo provider need a large value, feel free to decrease the value
@@ -39,11 +40,11 @@
 
     list = true;
     listchars = {
-      tab = "  ";
-      trail = "-";
+      tab = "┆ ";
+      trail = "×";
       space = "·";
+      leadmultispace = "┆   ";
       # multispace = " ";
-      # leadmultispace = "|> |";
       # extend = " ";
       # pre = " ";
       # post = " ";

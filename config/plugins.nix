@@ -16,23 +16,27 @@ in
         comment = { };
         # emmet = {};
         fidget = { };
-        indent-blankline = { };
+        # indent-blankline = { };
         lsp-format = { };
         # lsp-lines = { };
         lualine = { };
         # nvim-tree = { };
         # neo-tree = { };
-        nvim-autopairs = { };
+        # nvim-autopairs = { };
         nvim-colorizer = { };
         rainbow-delimiters = { };
         todo-comments = { };
-        treesitter = { };
         trim = { };
         ts-autotag = { };
         ts-context-commentstring = { };
         undotree = { };
       }
     // {
+      treesitter = {
+        enable = true;
+        settings.highlight.enable = true;
+      };
+
       trouble = {
         enable = true;
         settings.signs = {
@@ -54,7 +58,7 @@ in
 
       which-key = {
         enable = true;
-        window.winblend = 10;
+        # window.winblend = 10;
       };
 
       # illuminate = {
@@ -67,47 +71,92 @@ in
       #   preview.winConfig.winblend = 10;
       # };
 
-      telescope = {
+      fzf-lua = {
         enable = true;
+        settings = {
+          winopts.preview.default = "bat";
+        };
         keymaps = {
-          "<leader>?" = {
-            action = "oldfiles";
-            options.desc = "Recent Files (Telescope)";
-          };
-          "<leader><space>" = {
+          "<leader>sb" = {
             action = "buffers";
-            options.desc = "Buffers (Telescope)";
-          };
-          "<leader>gf" = {
-            action = "git_files";
-            options.desc = "[G]it [F]iles (Telescope)";
+            options.desc = "[S]earch [B]uffers (Fzf-Lua)";
           };
           "<leader>sf" = {
-            action = "find_files";
-            options.desc = "[S]earch [F]iles (Telescope)";
+            action = "files";
+            options.desc = "[S]earch [F]iles (Fzf-Lua)";
           };
-          "<leader>sh" = {
-            action = "help_tags";
-            options.desc = "[S]earch [H]elp (Telescope)";
-          };
-          "<leader>sw" = {
-            action = "grep_string";
-            options.desc = "[S]earch [W]ord (Telescope)";
+          "<leader>st" = {
+            action = "tags_live_grep";
+            options.desc = "[S]earch [T]ags (Fzf-Lua)";
           };
           "<leader>sg" = {
             action = "live_grep";
-            options.desc = "[S]earch [G]rep (Telescope)";
-          };
-          "<leader>sd" = {
-            action = "diagnostics";
-            options.desc = "[S]earch [D]iagnostics (Telescope)";
+            options.desc = "[S]earch [G]rep (Fzf-Lua)";
           };
           "<leader>sr" = {
             action = "resume";
-            options.desc = "[S]earch [R]esume (Telescope)";
+            options.desc = "[S]earch [R]esume (Fzf-Lua)";
+          };
+          "<leader>sh" = {
+            action = "helptags";
+            options.desc = "[S]earch [H]elp (Fzf-Lua)";
+          };
+          "<leader>sm" = {
+            action = "manpages";
+            options.desc = "[S]earch [M]anpages (Fzf-Lua)";
+          };
+          "<leader>sd" = {
+            action = "diagnostics_document";
+            options.desc = "[S]earch [D]iagnostics (Fzf-Lua)";
+          };
+          "<leader>sl" = {
+            action = "lsp_finder";
+            options.desc = "[S]earch [L]sp (Fzf-Lua)";
           };
         };
       };
+
+      # telescope = {
+      #   enable = true;
+      #   keymaps = {
+      #     "<leader>?" = {
+      #       action = "oldfiles";
+      #       options.desc = "Recent Files (Telescope)";
+      #     };
+      #     "<leader><space>" = {
+      #       action = "buffers";
+      #       options.desc = "Buffers (Telescope)";
+      #     };
+      #     "<leader>gf" = {
+      #       action = "git_files";
+      #       options.desc = "[G]it [F]iles (Telescope)";
+      #     };
+      #     "<leader>sf" = {
+      #       action = "find_files";
+      #       options.desc = "[S]earch [F]iles (Telescope)";
+      #     };
+      #     "<leader>sh" = {
+      #       action = "help_tags";
+      #       options.desc = "[S]earch [H]elp (Telescope)";
+      #     };
+      #     "<leader>sw" = {
+      #       action = "grep_string";
+      #       options.desc = "[S]earch [W]ord (Telescope)";
+      #     };
+      #     "<leader>sg" = {
+      #       action = "live_grep";
+      #       options.desc = "[S]earch [G]rep (Telescope)";
+      #     };
+      #     "<leader>sd" = {
+      #       action = "diagnostics";
+      #       options.desc = "[S]earch [D]iagnostics (Telescope)";
+      #     };
+      #     "<leader>sr" = {
+      #       action = "resume";
+      #       options.desc = "[S]earch [R]esume (Telescope)";
+      #     };
+      #   };
+      # };
 
       lspkind = {
         enable = true;
@@ -217,56 +266,57 @@ in
 
       lsp = {
         enable = true;
-        servers =
-          mkEn
-            {
-              bashls = { };
-              # biome = {};
-              cssls = { };
-              elmls = { };
-              jsonls = { };
-              gopls = { };
-              html = { };
-              htmx = { };
-              # java-language-server = {};
-              tsserver = { };
-            }
-          // {
-            lua-ls = {
-              enable = true;
-              settings.telemetry.enable = false;
-            };
-            rust-analyzer = {
-              enable = true;
-              installCargo = true;
-              installRustc = true;
-            };
-            nixd = {
-              enable = true;
-              settings = {
-                formatting.command = [ "nixpkgs-fmt" ];
-                diagnostic.suppress = [ "sema-escaping-with" ];
-                options = {
-                  nixos.expr = ''(builtins.getFlake "/home/pango/system").nixosConfigurations.desktop.options'';
-                  home-manager.expr = ''(builtins.getFlake "/home/pango/system").homeConfigurations.desktop.options'';
-                };
-              };
-            };
-            pylsp = {
-              enable = true;
-              settings.plugins.autopep8.enabled = true;
-            };
-            # clangd = {
-            #   enable = true;
-            #   cmd = [ "${pkgs.clang-tools}/bin/clangd" "-style=file:/home/pango/neovim/dots/.clang-format" ];
-            # };
-            ccls = {
-              enable = true;
-              initOptions.clang = {
-                extraArgs = [ "-style=file:/home/pango/neovim/dots/.clang-format" ];
+        servers = mkEn
+          {
+            bashls = { };
+            # biome = {};
+            # elmls = { };
+            gopls = { };
+            html = { };
+            # htmx = { };
+            # java-language-server = { };
+            jsonls = { };
+            tsserver = { };
+            zls = { };
+          }
+        // {
+          lua-ls = {
+            enable = true;
+            settings.telemetry.enable = false;
+          };
+          rust-analyzer = {
+            enable = true;
+            installCargo = true;
+            installRustc = true;
+          };
+          nixd = {
+            enable = true;
+            settings = {
+              formatting.command = [ "nixpkgs-fmt" ];
+              diagnostic.suppress = [ "sema-escaping-with" ];
+              options = {
+                nixos.expr = ''(builtins.getFlake "/home/pango/system").nixosConfigurations.desktop.options'';
+                home-manager.expr = ''(builtins.getFlake "/home/pango/system").homeConfigurations.desktop.options'';
+                nixvim.expr = ''(builtins.getFlake "/path/to/flake").packages.desktop.neovimNixvim.options'';
               };
             };
           };
+          pylsp = {
+            enable = true;
+            settings.plugins.autopep8.enabled = true;
+          };
+          clangd = {
+            enable = true;
+            # cmd = [ "${pkgs.clang-tools}/bin/clangd" "-std=c99" ];
+          };
+          # ccls = {
+          #   enable = true;
+          #   initOptions.clang.extraArgs = [
+          #     "-std=c99"
+          #     # "--style=file:/home/pango/neovim/dots/.clang-format"
+          #   ];
+          # };
+        };
 
         keymaps = {
           lspBuf = {

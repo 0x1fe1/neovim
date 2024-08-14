@@ -47,16 +47,41 @@
         options.desc = "[D] Void";
       }
 
-      # {
-      #   key = "Q";
-      #   action = "<nop>";
-      #   mode = ["n" "x"];
-      # }
+      {
+        key = "Q";
+        action = "<nop>";
+        mode = [ "n" "x" ];
+      }
       # {
       #   key = "q:";
       #   action = "<nop>";
       #   mode = ["n" "x"];
       # }
+
+      {
+        key = "<C-h>";
+        action = "<C-w><C-h>";
+        mode = [ "n" ];
+        options.desc = "Focus Left Split";
+      }
+      {
+        key = "<C-j>";
+        action = "<C-w><C-j>";
+        mode = [ "n" ];
+        options.desc = "Focus Down Split";
+      }
+      {
+        key = "<C-k>";
+        action = "<C-w><C-k>";
+        mode = [ "n" ];
+        options.desc = "Focus Up Split";
+      }
+      {
+        key = "<C-l>";
+        action = "<C-w><C-l>";
+        mode = [ "n" ];
+        options.desc = "Focus Right Split";
+      }
 
       {
         key = "-";
@@ -78,6 +103,37 @@
         mode = [ "x" ];
         options.desc = "Paste without yanking";
       }
+
+      {
+        key = "n";
+        action = "nzzzv";
+        mode = [ "n" ];
+        options.desc = "Next, center + unfold";
+      }
+      {
+        key = "N";
+        action = "Nzzzv";
+        mode = [ "n" ];
+        options.desc = "Previous, center + unfold";
+      }
+      {
+        key = "J";
+        action = "mzJ`z";
+        mode = [ "n" ];
+        options.desc = "Combine Lines";
+      }
+      # {
+      #   key = "<C-j>";
+      #   action = "<cmd>cprev<CR>zz";
+      #   mode = [ "n" ];
+      #   options.desc = "Quickfix list Previous";
+      # }
+      # {
+      #   key = "<C-k>";
+      #   action = "<cmd>cnext<CR>zz";
+      #   mode = [ "n" ];
+      #   options.desc = "Quickfix list Next";
+      # }
 
       # harpoon2
       {

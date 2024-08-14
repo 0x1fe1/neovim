@@ -17,11 +17,7 @@
     # };
   };
 
-  outputs =
-    { nixvim
-    , flake-parts
-    , ...
-    } @ inputs:
+  outputs = { nixvim, flake-parts, ... } @ inputs:
     let
       config = import ./config; # import the module directly
     in
