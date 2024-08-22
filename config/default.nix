@@ -38,11 +38,14 @@ in
       vim-move
       harpoon2
 
-      # gh:ThePrimeagen/harpoon/tree/harpoon2
+      # github:ThePrimeagen/harpoon/tree/harpoon2
       # (mkNvimPlugin inputs.harpoon "harpoon")
 
-      # gh:xiyaowong/transparent.nvim
+      # github:xiyaowong/transparent.nvim
       (mkNvimPlugin inputs.transparent-nvim "transparent.nvim")
+
+      # github:mikesmithgh/kitty-scrollback.nvim
+      # (mkNvimPlugin inputs.kitty-scrollback "kitty-scrollback")
     ];
 
     extraPackages = with pkgs; [
@@ -129,6 +132,9 @@ in
       -- HACK
       -- vim.g.loaded_matchparen = 1
       -- ^^^ fix some weird harpoon-related issue, when accessing a 4th buffer that starts with the same bracket
+
+      -- NOTE kitty-scrollback
+      -- require('kitty-scrollback').setup()
     '';
   };
 }

@@ -9,29 +9,43 @@ in
       {
         # bufferline = { };
         cmp-buffer = { };
-        cmp-nvim-lsp = { };
-        cmp-nvim-lsp-signature-help = { };
         cmp-path = { };
-        cmp_luasnip = { };
+        # cmp-nvim-lsp = { };
+        # cmp-nvim-lsp-signature-help = { };
+        # cmp_luasnip = { };
         comment = { };
         # emmet = {};
         fidget = { };
         # indent-blankline = { };
-        lsp-format = { };
+        # lsp-format = { };
         # lsp-lines = { };
         lualine = { };
         # nvim-tree = { };
         # neo-tree = { };
         # nvim-autopairs = { };
-        nvim-colorizer = { };
         rainbow-delimiters = { };
-        todo-comments = { };
+        # todo-comments = { };
         trim = { };
         ts-autotag = { };
         ts-context-commentstring = { };
         undotree = { };
       }
     // {
+      nvim-colorizer = {
+        enable = true;
+        userDefaultOptions = {
+          RGB = true;
+          RRGGBB = true;
+          RRGGBBAA = true;
+          css_fn = true;
+          names = false;
+
+          mode = "virtualtext";
+          virtualtext = "██";
+        };
+      };
+
+
       treesitter = {
         enable = true;
         settings.highlight.enable = true;
@@ -158,79 +172,82 @@ in
       #   };
       # };
 
-      lspkind = {
-        enable = true;
-        cmp.enable = true;
-      };
+      # lspkind = {
+      #   enable = true;
+      #   cmp.enable = true;
+      # };
 
       # adds a preset of snippets
-      friendly-snippets.enable = true;
-      luasnip = {
-        enable = true;
-        extraConfig = {
-          enable_autosnippets = true;
-        };
-        fromVscode = [
-          {
-            include = [ "html" ];
-            lazyLoad = true;
-          }
-        ];
-      };
+      # friendly-snippets.enable = true;
+      # luasnip = {
+      #   enable = true;
+      #   extraConfig = {
+      #     enable_autosnippets = true;
+      #   };
+      #   fromVscode = [
+      #     {
+      #       include = [ "html" ];
+      #       lazyLoad = true;
+      #     }
+      #   ];
+      # };
 
       cmp = {
         enable = true;
         autoEnableSources = true;
         settings = {
           sources = [
-            { name = "nvim_lsp"; }
-            { name = "luasnip"; }
+            # { name = "nvim_lsp"; }
+            # { name = "luasnip"; }
             { name = "path"; }
             { name = "buffer"; }
           ];
 
-          snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
+          # snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
 
           mapping = {
             "<C-Space>" = "cmp.mapping.complete()";
-            "<C-d>" = "cmp.mapping.scroll_docs(-4)";
             "<C-e>" = "cmp.mapping.close()";
-            "<C-f>" = "cmp.mapping.scroll_docs(4)";
-            "<C-y>" = /* lua */ ''
-              cmp.mapping(function(fallback)
-                  if cmp.visible() then
-                      if require("luasnip").expandable() then
-                          require("luasnip").expand()
-                      else
-                          cmp.confirm({select = true})
-                      end
-                  else
-                      fallback()
-                  end
-              end)
-            '';
-            "<C-n>" = /* lua */ ''
-              cmp.mapping(function(fallback)
-                if cmp.visible() then
-                  cmp.select_next_item()
-                elseif require("luasnip").locally_jumpable(1) then
-                  require("luasnip").jump(1)
-                else
-                  fallback()
-                end
-              end, { "i", "s" })
-            '';
-            "<C-p>" = /* lua */ ''
-              cmp.mapping(function(fallback)
-                if cmp.visible() then
-                  cmp.select_prev_item()
-                elseif require("luasnip").locally_jumpable(-1) then
-                  require("luasnip").jump(-1)
-                else
-                  fallback()
-                end
-              end, { "i", "s" })
-            '';
+            "<C-P>" = "cmp.mapping.scroll_docs(-4)";
+            "<C-N>" = "cmp.mapping.scroll_docs(4)";
+            "<C-y>" = "cmp.confirm({select = true})";
+            "<C-n>" = "cmp.select_next_item()";
+            "<C-p>" = "cmp.select_prev_item()";
+            # "<C-y>" = /* lua */ ''
+            #   cmp.mapping(function(fallback)
+            #       if cmp.visible() then
+            #           if require("luasnip").expandable() then
+            #               require("luasnip").expand()
+            #           else
+            #               cmp.confirm({select = true})
+            #           end
+            #       else
+            #           fallback()
+            #       end
+            #   end)
+            # '';
+            # "<C-n>" = /* lua */ ''
+            #   cmp.mapping(function(fallback)
+            #     if cmp.visible() then
+            #       cmp.select_next_item()
+            #     elseif require("luasnip").locally_jumpable(1) then
+            #       require("luasnip").jump(1)
+            #     else
+            #       fallback()
+            #     end
+            #   end, { "i", "s" })
+            # '';
+            # "<C-p>" = /* lua */ ''
+            #   cmp.mapping(function(fallback)
+            #     if cmp.visible() then
+            #       cmp.select_prev_item()
+            #     elseif require("luasnip").locally_jumpable(-1) then
+            #       require("luasnip").jump(-1)
+            #     else
+            #       fallback()
+            #     end
+            #   end, { "i", "s" })
+            # '';
           };
         };
       };
@@ -241,10 +258,10 @@ in
         lightbulb.virtualText = false;
       };
 
-      clangd-extensions = {
-        enable = true;
-        enableOffsetEncodingWorkaround = true;
-      };
+      # clangd-extensions = {
+      #   enable = true;
+      #   enableOffsetEncodingWorkaround = true;
+      # };
 
       # copilot-lua = {
       #   enable = true;
@@ -305,10 +322,10 @@ in
             enable = true;
             settings.plugins.autopep8.enabled = true;
           };
-          clangd = {
-            enable = true;
-            # cmd = [ "${pkgs.clang-tools}/bin/clangd" "-std=c99" ];
-          };
+          # clangd = {
+          #   enable = true;
+          #   # cmd = [ "${pkgs.clang-tools}/bin/clangd" "-std=c99" ];
+          # };
           # ccls = {
           #   enable = true;
           #   initOptions.clang.extraArgs = [

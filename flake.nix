@@ -6,13 +6,17 @@
     nixvim.url = "github:nix-community/nixvim";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    # bleeding edge plugins
+    # bleeding edge/non-nixpkgs plugins
     transparent-nvim = {
       url = "github:xiyaowong/transparent.nvim";
       flake = false;
     };
     # harpoon = {
     #   url = "github:ThePrimeagen/harpoon/harpoon2";
+    #   flake = false;
+    # };
+    # kitty-scrollback = {
+    #   url = "github:mikesmithgh/kitty-scrollback.nvim";
     #   flake = false;
     # };
   };
