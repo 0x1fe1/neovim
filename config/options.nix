@@ -13,6 +13,8 @@
     tabstop = 4;
     shiftwidth = 4;
     expandtab = true;
+    smartindent = true;
+    autoindent = true;
 
     signcolumn = "yes";
     encoding = "utf-8";
@@ -28,7 +30,7 @@
     fillchars = "eob: ,fold: ";
 
     splitright = true;
-    splitbelow = true;
+    splitbelow = false;
     backup = false;
     swapfile = false;
     writebackup = false;
@@ -40,10 +42,10 @@
 
     list = true;
     listchars = {
-      tab = "┆ ";
       trail = "×";
       space = "·";
-      leadmultispace = "┆   ";
+      # tab = "┆ ";
+      # leadmultispace = "┆   ";
       # multispace = " ";
       # extend = " ";
       # pre = " ";

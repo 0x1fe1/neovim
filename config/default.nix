@@ -34,25 +34,19 @@ in
     };
 
     extraPlugins = with pkgs.vimPlugins; [
-      hover-nvim
+      # hover-nvim
       vim-move
       harpoon2
+      guard-nvim
+      guard-collection
 
-      # github:ThePrimeagen/harpoon/tree/harpoon2
-      # (mkNvimPlugin inputs.harpoon "harpoon")
-
-      # github:xiyaowong/transparent.nvim
-      (mkNvimPlugin inputs.transparent-nvim "transparent.nvim")
-
-      # github:mikesmithgh/kitty-scrollback.nvim
       # (mkNvimPlugin inputs.kitty-scrollback "kitty-scrollback")
+      # (mkNvimPlugin inputs.indentmini "indentmini")
     ];
 
     extraPackages = with pkgs; [
       xclip
-      # alejandra
-      # elmPackages.elm-format
-      # nodejs_18
+      alejandra
     ];
 
     autoCmd = [
@@ -72,10 +66,26 @@ in
           '';
         };
       }
+
+      # Open help window in a vertical split to the right.
+      # {
+      #   event = [ "BufWinEnter" ];
+      #   pattern = [ "*.txt" ];
+      #   group = "vim.api.nvim_create_augroup(\"help_window_right\", {})";
+      #   callback.__raw = ''function()
+      #     if vim.o.filetype == 'help' then vim.cmd.wincmd("L") end
+      #   end'';
+      # }
     ];
 
     autoGroups = {
       YankHighlight.clear = true;
+    };
+
+    highlight = {
+      foo = {
+        fg = "#808080";
+      };
     };
 
     extraFiles =
@@ -93,48 +103,41 @@ in
       };
 
     extraConfigLuaPost = /* lua */ ''
-      -- NOTE indent-blankline multicolor
-      -- local ibl_high = { 'ctpRed', 'ctpPeach', 'ctpYellow', 'ctpGreen', 'ctpSky', 'ctpBlue', 'ctpMauve' }
-      -- require('ibl.hooks').register(require('ibl.hooks').type.HIGHLIGHT_SETUP, function()
-      --   local ibl_high_colors = {'#F38BA8', '#FAB387', '#F9E2AF', '#A6E3A1', '#89DCEB', '#89B4FA', '#CBA6F7'}
-      --   for i, name in ipairs(ibl_high) do
-      --     vim.api.nvim_set_hl(0, name, { fg = ibl_high_colors[i] })
-      --   end
-      -- end)
-      -- require('ibl').setup({
-      --   indent = { highlight = ibl_high, char = '┆' },
-      --   scope = { enabled = false },
-      --   viewport_buffer = { min = 128, max = 512 },
-      -- })
+      -- '#F38BA8', '#FAB387', '#F9E2AF', '#A6E3A1', '#89DCEB', '#89B4FA', '#CBA6F7'
 
-      -- NOTE hover.nvim
-      require("hover").setup {
-        init = function()
-          require("hover.providers.lsp")
-          -- require('hover.providers.man')
-          -- require('hover.providers.dictionary')
-        end,
-        preview_opts = {
-          border = 'single'
-        },
-        -- Whether the contents of a currently open hover window should be moved
-        -- to a :h preview-window when pressing the hover keymap.
-        preview_window = false,
-        title = false,
-      }
-      vim.keymap.set("n", "K", require("hover").hover, {desc = "hover.nvim"})
-      vim.keymap.set("n", "gK", require("hover").hover_select, {desc = "hover.nvim (select)"})
-
-
-
-      -- NOTE harpoon2
       require("harpoon"):setup()
-      -- HACK
-      -- vim.g.loaded_matchparen = 1
+      -- HACK vim.g.loaded_matchparen = 1
       -- ^^^ fix some weird harpoon-related issue, when accessing a 4th buffer that starts with the same bracket
 
-      -- NOTE kitty-scrollback
       -- require('kitty-scrollback').setup()
+
+      -- require("indentmini").setup({ char = "┆", only_current = false, })
+      -- vim.cmd.highlight('IndentLine guifg=#808080')
+      -- vim.cmd.highlight('IndentLineCurrent guifg=#808080')
+
+      -- Open help window in a vertical split to the right.
+      vim.api.nvim_create_autocmd("BufWinEnter", {
+          group = vim.api.nvim_create_augroup("help_window_right", {}),
+          pattern = { "*.txt" },
+          callback = function()
+              if vim.o.filetype == 'help' then vim.cmd.wincmd("L") end
+          end
+      })
+
+      -- NOTE: GUARD
+      local ft = require('guard.filetype')
+
+      ft('c,cpp'):fmt('clang-format')
+             :lint('clang-tidy')
+
+      -- Call setup() LAST!
+      require('guard').setup({
+          fmt_on_save = false,
+          lsp_as_default_formatter = false,
+          -- By default, Guard writes the buffer on every format
+          -- You can disable this by setting:
+          -- save_on_fmt = false,
+      })
     '';
   };
 }
