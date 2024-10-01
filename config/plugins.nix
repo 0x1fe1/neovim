@@ -28,7 +28,8 @@ in
           RRGGBBAA = true;
           css_fn = true;
           names = false;
-          mode = "foreground";
+          mode = "virtualtext";
+	  virtualtext = "██";
         };
       };
 

@@ -37,8 +37,8 @@ in
       # hover-nvim
       vim-move
       harpoon2
-      guard-nvim
-      guard-collection
+      # guard-nvim
+      # guard-collection
 
       # (mkNvimPlugin inputs.kitty-scrollback "kitty-scrollback")
       # (mkNvimPlugin inputs.indentmini "indentmini")
@@ -88,19 +88,19 @@ in
       };
     };
 
-    extraFiles =
-      let
-        text = ''
-          vim.opt.tabstop = 2
-          vim.opt.shiftwidth = 2
-          vim.opt.expandtab = true
-        '';
-      in
-      {
-        "ftplugin/nix.lua".text = text;
-        # "ftplugin/toml.lua".text = text;
-        # "ftplugin/c.lua".text = text;
-      };
+    # extraFiles =
+    #   let
+    #     text = ''
+    #       vim.opt.tabstop = 2
+    #       vim.opt.shiftwidth = 2
+    #       vim.opt.expandtab = true
+    #     '';
+    #   in
+    #   {
+    #     "ftplugin/nix.lua".text = text;
+    #     # "ftplugin/toml.lua".text = text;
+    #     # "ftplugin/c.lua".text = text;
+    #   };
 
     extraConfigLuaPost = /* lua */ ''
       -- '#F38BA8', '#FAB387', '#F9E2AF', '#A6E3A1', '#89DCEB', '#89B4FA', '#CBA6F7'
@@ -125,19 +125,19 @@ in
       })
 
       -- NOTE: GUARD
-      local ft = require('guard.filetype')
-
-      ft('c,cpp'):fmt('clang-format')
-             :lint('clang-tidy')
-
-      -- Call setup() LAST!
-      require('guard').setup({
-          fmt_on_save = false,
-          lsp_as_default_formatter = false,
-          -- By default, Guard writes the buffer on every format
-          -- You can disable this by setting:
-          -- save_on_fmt = false,
-      })
+      -- local ft = require('guard.filetype')
+      --
+      -- ft('c,cpp'):fmt('clang-format')
+      --        :lint('clang-tidy')
+      --
+      -- -- Call setup() LAST!
+      -- require('guard').setup({
+      --     fmt_on_save = false,
+      --     lsp_as_default_formatter = false,
+      --     -- By default, Guard writes the buffer on every format
+      --     -- You can disable this by setting:
+      --     -- save_on_fmt = false,
+      -- })
     '';
   };
 }
