@@ -1,5 +1,5 @@
 { pkgs ? import <nixpkgs> {} }: {
-	config.plugins = mkEn {
+	config.plugins = {
 		lualine			= { enable = true; };
 		rainbow-delimiters	= { enable = true; };
 		transparent		= { enable = true; };

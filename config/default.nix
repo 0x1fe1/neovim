@@ -33,6 +33,15 @@ in {
 			harpoon2
 		];
 
+		extraFiles = {
+			"ftplugin/gleam.lua".text = ''
+				vim.opt.comments="://"
+				vim.opt.commentstring = "// %s"
+			'';
+			# "ftplugin/toml.lua".text = text;
+			# "ftplugin/c.lua".text = text;
+		};
+
 		# extraPackages = with pkgs; [ ];
 
 		autoCmd = [
