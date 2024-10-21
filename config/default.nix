@@ -25,7 +25,7 @@ in {
 		clipboard = {
 			register = "unnamedplus";
 			providers.xclip.enable = true;
-			providers.wl-copy.enable = true;
+			# providers.wl-copy.enable = true;
 		};
 
 		extraPlugins = with pkgs.vimPlugins; [
