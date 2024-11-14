@@ -16,6 +16,7 @@
 		list = true;
 		listchars = { trail = "×"; tab = "» "; };
 		mouse = "a";
+		mousescroll = "ver:1,hor:1";
 		number = true;
 		relativenumber = false;
 		showmatch = false;
